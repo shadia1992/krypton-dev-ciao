@@ -39,7 +39,7 @@
         <div class="container">
             <div class="content">
                 <div class="title">KRYPTON TA MERE LOL</div>
-                <h2>Ceci est un test, mofo</h2>
+                <h2>Ceci est un test, gros con</h2>
             </div>
         </div>
     </body>
