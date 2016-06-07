@@ -13,7 +13,7 @@ class UserController extends BaseController {
    */
   public function index()
   {
-    
+    return Origin::all();
   }
 
   /**
@@ -33,7 +33,15 @@ class UserController extends BaseController {
    */
   public function store()
   {
-    
+     echo "coucou";
+     $fields = Request::all();//('name', 'email','sex','birth_year', 'phone_number','password','origin_id');
+       /*if (!User::validate($fields)) {
+           return response('Fields error', 400);
+
+       }*/
+       $user = new User($fields);
+       $user->save($user);
+       return $user;
   }
 
   /**

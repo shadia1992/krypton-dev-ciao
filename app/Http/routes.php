@@ -24,9 +24,9 @@ Route::get('/db', function () {
     }
 });
 
-Route::get('/users', 'UserController@index');
+Route::get('/user/', 'UserController@index');
 
-Route::post('/user', 'UserController@store');
+Route::post('/users', 'UserController@store');
 
 
 
