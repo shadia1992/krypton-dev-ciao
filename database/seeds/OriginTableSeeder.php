@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Database\Seeder;
+
+
 class OriginTableSeeder extends Seeder {
 	
 	public function run() 
