@@ -20,7 +20,7 @@ Route::get('/db', function () {
     {
 
         echo "conncted sucessfully to database ".DB::connection()->getDatabaseName();
-        $users = DB::table('users')->first();
+        $users = DB::table('users');
     }
 });
 
