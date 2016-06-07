@@ -21,7 +21,8 @@ Route::get('/dbtest', function () {
     {
         echo "connected sucessfully to database ".DB::connection()->getDatabaseName();
         $results = DB::select('select * from migrations');
-        print_r($results);
+        return $results;
+
     }
 });
 
