@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/db', function () {
+    if(DB::connection()->getDatabaseName())
+    {
+
+        echo "conncted sucessfully to database ".DB::connection()->getDatabaseName();
+        $users = DB::table('users')->first();
+    }
+});
+
+
