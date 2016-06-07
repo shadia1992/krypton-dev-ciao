@@ -16,7 +16,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/db', function () {
+Route::get('/dbtest', function () {
     if(DB::connection()->getDatabaseName())
     {
         echo "connected sucessfully to database ".DB::connection()->getDatabaseName();
@@ -25,9 +25,9 @@ Route::get('/db', function () {
     }
 });
 
-Route::get('/user/', 'UserController@index');
 
-Route::post('/users', 'UserController@store');
+Route::get('/user/', 'UserController@index');
+Route::get('/subject/', 'SubjectController@index');
 
 
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Routing\Controller as BaseController;
+use App\Models\User;
 
 class UserController extends BaseController {
 
@@ -13,7 +15,8 @@ class UserController extends BaseController {
    */
   public function index()
   {
-    return Origin::all();
+    $users = User::all();
+    print_r($users);
   }
 
   /**
