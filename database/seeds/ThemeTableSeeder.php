@@ -10,17 +10,17 @@ class ThemeTableSeeder extends Seeder {
 		//DB::table('themes')->delete();
 
 		// Sexualité
-		$theme1 = Theme::create(array(
+		Theme::create(array(
 				'name' => 'Sexualité'
 			));
 
 		// Santé
-		$theme2 = Theme::create(array(
+		Theme::create(array(
 				'name' => 'Santé'
 			));
 
 		// Violence
-		$theme3 = Theme::create(array(
+		Theme::create(array(
 				'name' => 'Violence'
 			));
 	}
