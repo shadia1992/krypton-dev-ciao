@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Database\Seeder;
+use App\Models\Origin;
 
 class OriginTableSeeder extends Seeder {
 	
