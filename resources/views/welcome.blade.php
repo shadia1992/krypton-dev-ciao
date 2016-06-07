@@ -40,7 +40,7 @@
             <div class="content">
                 <div class="title">KRYPTON TA MERE LOL</div>
                 <h2>Ceci est un test, gros con</h2>
-                <h2>C'est la version de PA</h2>
+                <h2>Ca marche??</h2>
             </div>
         </div>
     </body>
