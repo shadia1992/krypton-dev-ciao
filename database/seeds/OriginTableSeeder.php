@@ -2,9 +2,6 @@
 use Illuminate\Database\Seeder;
 use App\Models\Origin;
 
-use Illuminate\Database\Seeder;
-
-
 class OriginTableSeeder extends Seeder {
 	
 	public function run() 
