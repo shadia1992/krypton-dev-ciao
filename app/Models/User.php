@@ -7,10 +7,19 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class User extends Model {
 
+	/**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name','email','sex','birth_year', 'phone_number','password','origin_id'
+    ];
+
 	protected $table = 'users';
 	public $timestamps = true;
 
-	use SoftDeletingTrait;
+	
 
 	protected $dates = ['deleted_at'];
 

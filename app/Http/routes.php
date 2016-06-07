@@ -24,9 +24,25 @@ Route::get('/db', function () {
     }
 });
 
-Route::get('/user/', 'UserController@index');
+Route::get('/user', 'UserController@index');
 
-Route::post('/users', 'UserController@store');
+Route::post('/user/register', 'UserController@store');
+
+Route::get('/login', 'AuthController@login');
+
+    /*
+     * AUTH OK
+     */
+    Route::group(['middleware' => ['auth']], function () {
+        
+        	Route::get('logout', 'AuthController@logout');
+        
+            Route::get('/albumMy/', 'RestController@indexMy');
+            Route::post('/album/', 'RestController@store');
+            Route::delete('/album/', 'RestController@destroy');             
+            
+      
+        });
 
 
 

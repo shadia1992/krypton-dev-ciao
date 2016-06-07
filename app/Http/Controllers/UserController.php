@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
+use App\Models\Origin;
+use App\Models\User;
+use Session;
+use Request;
 
 class UserController extends BaseController {
 
@@ -33,14 +37,14 @@ class UserController extends BaseController {
    */
   public function store()
   {
-     echo "coucou";
-     $fields = Request::all();//('name', 'email','sex','birth_year', 'phone_number','password','origin_id');
+     //echo "coucou";
+     $fields = Request::only('name','email','sex','birth_year', 'phone_number','password','origin_id');
        /*if (!User::validate($fields)) {
            return response('Fields error', 400);
 
        }*/
        $user = new User($fields);
-       $user->save($user);
+       $user->save();
        return $user;
   }
 
