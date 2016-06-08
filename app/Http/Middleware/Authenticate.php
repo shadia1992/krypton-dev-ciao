@@ -18,7 +18,7 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-       $userId = Session::get('user_id');
+       $userId = Session::get('id');
        if (!isset($userId)) {
            return response('Unauthorised', 403);
        }

@@ -16,5 +16,8 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('OriginTableSeeder');
 		$this->command->info('Origin table seeded!');
+
+		$this->call('GroupTableSeeder');
+		$this->command->info('Group table seeded!');
 	}
 }

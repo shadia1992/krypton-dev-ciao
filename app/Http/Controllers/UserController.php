@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Origin;
 use App\Models\User;
+use App\Models\Group;
 use Session;
 use Request;
 
@@ -17,7 +18,7 @@ class UserController extends BaseController {
    */
   public function index()
   {
-    return Origin::all();
+    return User::all();
   }
 
   /**
@@ -38,12 +39,13 @@ class UserController extends BaseController {
   public function store()
   {
      //echo "coucou";
-     $fields = Request::only('name','email','sex','birth_year', 'phone_number','password','origin_id');
+      $fields = Request::only('name','email','sex','birth_year', 'phone_number','password','origin_id');
        /*if (!User::validate($fields)) {
            return response('Fields error', 400);
-
        }*/
        $user = new User($fields);
+       $group = Group::find(1);
+       $group->users()->save($user);
        $user->save();
        return $user;
   }
@@ -54,9 +56,10 @@ class UserController extends BaseController {
    * @param  int  $id
    * @return Response
    */
-  public function show($id)
+  public function show()
   {
-    
+    $user = User::find(Session::get('id'));
+       return $user;
   }
 
   /**
@@ -65,7 +68,7 @@ class UserController extends BaseController {
    * @param  int  $id
    * @return Response
    */
-  public function edit($id)
+  public function edit()
   {
     
   }

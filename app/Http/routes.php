@@ -37,7 +37,7 @@ Route::get('/login', 'AuthController@login');
         
         	Route::get('logout', 'AuthController@logout');
         
-            Route::get('/albumMy/', 'RestController@indexMy');
+            Route::get('/show/', 'UserController@show');
             Route::post('/album/', 'RestController@store');
             Route::delete('/album/', 'RestController@destroy');             
             
