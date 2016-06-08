@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+use App\Models\Theme;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,8 +20,7 @@ Route::get('/dbtest', function () {
     if(DB::connection()->getDatabaseName())
     {
         echo "connected sucessfully to database ".DB::connection()->getDatabaseName();
-        $results = DB::select('select * from migrations');
-        return $results;
+        return 	Theme::where('name', 'like','Sexualité%')->first()->id;
 
     }
 });

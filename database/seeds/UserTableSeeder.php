@@ -97,6 +97,26 @@ class UserTableSeeder extends Seeder
             'origin_id' => Origin::where('code', '=', 'CH')->first()->id
         ]);
 
+        User::create([
+            'email' => 'mod@heig-vd.ch',
+            'password' => bcrypt('123456'),
+            'name' => 'moderator',
+            'sex' => 'M',
+            'birth_year' => '1975',
+            'phone_number' => '0000000000',
+            'origin_id' => Origin::where('code', '=', 'CH')->first()->id
+        ]);
+
+        User::create([
+            'email' => 'spec@heig-vd.ch',
+            'password' => bcrypt('123456'),
+            'name' => 'specialist',
+            'sex' => 'M',
+            'birth_year' => '1977',
+            'phone_number' => '0000000000',
+            'origin_id' => Origin::where('code', '=', 'CH')->first()->id
+        ]);
+
 
     }
 }
