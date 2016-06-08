@@ -10,17 +10,13 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 use App\Models\Theme;
->>>>>>> f2e5e1de5eeb5e85be08cc278f5b8b19dc6baba3
 
 Route::get('/', function () {
     return view('welcome');
 });
-<<<<<<< HEAD
-=======
+
 
 Route::get('/dbtest', function () {
     if(DB::connection()->getDatabaseName())
@@ -31,11 +27,7 @@ Route::get('/dbtest', function () {
     }
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
 Route::get('/user', 'UserController@index');
 
 Route::post('/user/register', 'UserController@store');
@@ -68,11 +60,36 @@ Route::get('/subject/', 'SubjectController@index');
 
 
 
-<<<<<<< HEAD
 
->>>>>>> f2e5e1de5eeb5e85be08cc278f5b8b19dc6baba3
-=======
 Route::get('/', function () {
     return view('welcome');
 });
->>>>>>> b60b0054af1269d82ddfc2d978e15c182627915c
+
+Route::group(['middleware' => ['web']], function () {
+
+	Route::get('/', function () {
+    	return view('welcome');
+	});
+
+	Route::get('/user', 'UserController@index');
+	Route::get('/theme', 'ThemeController@index');
+	Route::get('/theme/create', 'ThemeController@create');
+	Route::get('/user/create', 'UserController@create');
+	Route::post('/user', 'UserController@store');
+	Route::get('/login', function () {
+    	return 'ceci est la page de login';
+	});
+	//Route::get('/login', 'AuthController@login');
+
+    Route::group(['middleware' => ['auth']], function () {
+        
+        Route::get('/logout', 'AuthController@logout');
+
+		Route::group(['middleware' => ['aclRest']], function () {
+			Route::get('/user/{id}', 'UserController@show');
+			Route::get('/user/{id}/edit', 'UserController@edit');
+			Route::put('/user/{id}', 'UserController@update');
+			Route::delete('/user/{id}', 'UserController@destroy');
+        });
+    });
+});
