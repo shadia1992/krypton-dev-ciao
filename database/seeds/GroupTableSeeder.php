@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Group;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 class GroupTableSeeder extends Seeder {
 
 	public function run()
@@ -32,6 +33,8 @@ class GroupTableSeeder extends Seeder {
 	}
 }
 =======
+=======
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
 class GroupTableSeeder extends Seeder
 {
     /**
@@ -54,4 +57,7 @@ class GroupTableSeeder extends Seeder
         DB::table('groups')->insert($groups);
     }
 }
+<<<<<<< HEAD
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
+=======
 >>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7

@@ -32,7 +32,11 @@ class User extends Model {
 	public $timestamps = true;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
+=======
+	//use SoftDeletingTrait;
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
 =======
 	//use SoftDeletingTrait;
 >>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7

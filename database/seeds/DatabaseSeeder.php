@@ -19,9 +19,12 @@ class DatabaseSeeder extends Seeder {
 		$this->command->info('Origin table seeded!');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		$this->call('GroupTableSeeder');
 		$this->command->info('Group table seeded!');
 =======
+=======
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
 		$this->call('UserTableSeeder');
 		$this->command->info('User table seeded!');
 
@@ -35,6 +38,9 @@ class DatabaseSeeder extends Seeder {
 		$this->command->info('Group_User table seeded!');
 
 
+<<<<<<< HEAD
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
+=======
 >>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
 	}
 }

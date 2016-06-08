@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 <<<<<<< HEAD
+<<<<<<< HEAD
 use App\Models\Resource;
 
 class ResourceTableSeeder extends Seeder {
@@ -180,6 +181,8 @@ class ResourceTableSeeder extends Seeder {
 	}
 }
 =======
+=======
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
 
 class ResourceTableSeeder extends Seeder
 {
@@ -193,4 +196,7 @@ class ResourceTableSeeder extends Seeder
         //
     }
 }
+<<<<<<< HEAD
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
+=======
 >>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7

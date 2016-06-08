@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 <<<<<<< HEAD
+<<<<<<< HEAD
 use App\Models\Origin;
 use App\Models\User;
 use App\Models\Group;
 use Session;
 use Request;
+=======
+use App\Models\User;
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
 =======
 use App\Models\User;
 >>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
@@ -24,7 +28,12 @@ class UserController extends BaseController {
   public function index()
   {
 <<<<<<< HEAD
+<<<<<<< HEAD
     return User::all();
+=======
+    $users = User::all();
+    return $users;
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
 =======
     $users = User::all();
     return $users;

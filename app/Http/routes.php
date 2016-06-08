@@ -26,6 +26,7 @@ Route::get('/dbtest', function () {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Route::get('/user', 'UserController@index');
 
 Route::post('/user/register', 'UserController@store');
@@ -45,6 +46,11 @@ Route::get('/login', 'AuthController@login');
             
       
         });
+=======
+
+Route::get('/user/', 'UserController@index');
+Route::get('/subject/', 'SubjectController@index');
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
 =======
 
 Route::get('/user/', 'UserController@index');
