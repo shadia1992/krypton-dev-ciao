@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Controller as BaseController;
+use App\Models\Subject;
 
-class SubjectController extends BaseController {
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Models\ArticlePublicitaire;
+
+
+class SubjectController extends Controller {
 
   /**
    * Display a listing of the resource.
@@ -13,7 +19,8 @@ class SubjectController extends BaseController {
    */
   public function index()
   {
-    
+    $subjects = Subject::all();
+    return $subjects;
   }
 
   /**

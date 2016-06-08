@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
+
 class DatabaseSeeder extends Seeder {
 
 	public function run()
@@ -17,7 +18,23 @@ class DatabaseSeeder extends Seeder {
 		$this->call('OriginTableSeeder');
 		$this->command->info('Origin table seeded!');
 
+<<<<<<< HEAD
 		$this->call('GroupTableSeeder');
 		$this->command->info('Group table seeded!');
+=======
+		$this->call('UserTableSeeder');
+		$this->command->info('User table seeded!');
+
+		$this->call('GroupTableSeeder');
+		$this->command->info('Group table seeded!');
+
+		$this->call('TagTableSeeder');
+		$this->command->info('Tag table seeded!');
+
+		$this->call('GroupUserTableSeeder');
+		$this->command->info('Group_User table seeded!');
+
+
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
 	}
 }

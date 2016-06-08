@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+<<<<<<< HEAD
 use App\Models\Resource;
 
 class ResourceTableSeeder extends Seeder {
@@ -178,3 +179,18 @@ class ResourceTableSeeder extends Seeder {
 		
 	}
 }
+=======
+
+class ResourceTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        //
+    }
+}
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7

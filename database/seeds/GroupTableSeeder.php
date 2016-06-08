@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\Group;
 
+<<<<<<< HEAD
 class GroupTableSeeder extends Seeder {
 
 	public function run()
@@ -30,3 +31,27 @@ class GroupTableSeeder extends Seeder {
 			));
 	}
 }
+=======
+class GroupTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+
+        DB::table('groups')->delete();
+
+        $groups = [
+            ['name'=>'guest'],
+            ['name'=>'admin'],
+            ['name'=>'specialist'],
+            ['name'=>'moderator'],
+        ];
+
+        DB::table('groups')->insert($groups);
+    }
+}
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7

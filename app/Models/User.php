@@ -31,7 +31,11 @@ class User extends Model {
 	protected $table = 'users';
 	public $timestamps = true;
 
+<<<<<<< HEAD
 	
+=======
+	//use SoftDeletingTrait;
+>>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
 
 	protected $dates = ['deleted_at'];
 

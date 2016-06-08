@@ -1,0 +1,24 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   .idea/workspace.xml
+#
+# Untracked files:
+#	database/seeds/CommentTableSeeder.php
+#	database/seeds/DiscussionTableSeeder.php
+#	database/seeds/DiscussionTagTableSeeder.php
+#	database/seeds/GroupResourceTableSeeder.php
+#	database/seeds/GroupTableSeeder.php
+#	database/seeds/GroupUserTableSeeder.php
+#	database/seeds/QuestionTableSeeder.php
+#	database/seeds/QuestionTagTableSeeder.php
+#	database/seeds/ResourceTableSeeder.php
+#	database/seeds/ResponseTableSeeder.php
+#	database/seeds/TagTableSeeder.php
+#	database/seeds/UserTableSeeder.php
+#
+

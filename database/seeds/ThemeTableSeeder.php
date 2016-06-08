@@ -7,21 +7,18 @@ class ThemeTableSeeder extends Seeder {
 
 	public function run()
 	{
-		//DB::table('themes')->delete();
+		DB::table('themes')->delete();
 
-		// Sexualité
-		Theme::create(array(
-				'name' => 'Sexualité'
-			));
+		$themes = [
+			['name'=>'Actualité'],
+			['name'=>'Boisson, fumée, drogue'],
+			['name'=>'Internet'],
+			['name'=>'Manger et bouger'],
+			['name'=>'Corps et esprit'],
+			['name'=>'Sexualité'],
+			['name'=>'Relations'],
+		];
 
-		// Santé
-		Theme::create(array(
-				'name' => 'Santé'
-			));
-
-		// Violence
-		Theme::create(array(
-				'name' => 'Violence'
-			));
+		DB::table('themes')->insert($themes);
 	}
 }
