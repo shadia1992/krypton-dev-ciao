@@ -31,6 +31,7 @@ Route::get('/login', 'AuthController@login');
       
         });
 
+
 Route::get('/user/', 'UserController@index');
 Route::get('/subject/', 'SubjectController@index');
 
