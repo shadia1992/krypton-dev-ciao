@@ -2,8 +2,6 @@
 
 use Illuminate\Database\Seeder;
 
-<<<<<<< 424b323dfd756b75a62d7058254fc0d212d3186e
-
 class DatabaseSeeder extends Seeder {
 
 	public function run()
@@ -35,7 +33,6 @@ class DatabaseSeeder extends Seeder {
 		$this->command->info('Ressource table seeded!');
 	}
 }
-=======
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -48,4 +45,3 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
     }
 }
->>>>>>> Get proj
