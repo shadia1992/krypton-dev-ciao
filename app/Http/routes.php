@@ -11,54 +11,6 @@
 |
 */
 
-use App\Models\Theme;
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::get('/dbtest', function () {
-    if(DB::connection()->getDatabaseName())
-    {
-        echo "connected sucessfully to database ".DB::connection()->getDatabaseName();
-        return 	Theme::where('name', 'like','Sexualité%')->first()->id;
-
-    }
-});
-
-
-Route::get('/user', 'UserController@index');
-
-Route::post('/user/register', 'UserController@store');
-
-Route::get('/login', 'AuthController@login');
-
-    /*
-     * AUTH OK
-     */
-    Route::group(['middleware' => ['auth']], function () {
-        
-        	Route::get('logout', 'AuthController@logout');
-        
-            Route::get('/show/', 'UserController@show');
-            Route::post('/album/', 'RestController@store');
-            Route::delete('/album/', 'RestController@destroy');             
-            
-      
-        });
-
-
-Route::get('/user/', 'UserController@index');
-Route::get('/subject/', 'SubjectController@index');
-
-
-Route::get('/user/', 'UserController@index');
-Route::get('/subject/', 'SubjectController@index');
-
-
-
-
 
 
 Route::get('/', function () {
