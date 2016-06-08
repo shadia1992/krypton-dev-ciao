@@ -12,62 +12,62 @@ class SubjectTableSeeder extends Seeder {
 
 		// Contraception
 		Subject::create([
-				'name' => 'Jai peur dêtre enceinte',
+				'name' => 'Grossesse',
 				'theme_id' => Theme::where('name', 'like','Sexualité%')->first()->id
 		]);
 
 		// Puberté
 		Subject::create(array(
 			'theme_id' => Theme::where('name', 'like','Sexualité%')->first()->id,
-				'name' => 'Je n\'ai pas de poil, est-ce normal?'
+				'name' => 'Puberté'
 			));
 
 		// Homosexualité
 		Subject::create(array(
 				'theme_id' => Theme::where('name', 'like','Sexualité%')->first()->id,
-				'name' => 'Mon meilleur ami est gay'
+				'name' => 'Homosexualité'
 			));
 
 		// Obésité
 		Subject::create(array(
 				'theme_id' => Theme::where('name', 'like','Corps et esprit%')->first()->id,
-				'name' => 'Je pèse 214kg, c\'est grave ?'
+				'name' => 'Obésité'
 			));
 
 		// Sport
 		Subject::create(array(
 				'theme_id' => Theme::where('name', 'like','Manger et bouger%')->first()->id,
-				'name' => 'On me dit que je ne fais pas assez de sport...'
+				'name' => 'Sport'
 			));
 
 		// Alimentation
 		Subject::create(array(
 				'theme_id' => Theme::where('name', 'like','Manger et bouger%')->first()->id,
-				'name' => 'Pourquoi le mcdo ça pue ?'
+				'name' => 'Nutrition'
 			));
 
 		// Violence contre moi
 		Subject::create(array(
 				'theme_id' => Theme::where('name', 'like','Relations%')->first()->id,
-				'name' => 'Violence contre moi'
+				'name' => 'Violence'
 			));
 
 		// AbusSexuelSexualité 
 		Subject::create(array(
 				'theme_id' => Theme::where('name', 'like','Sexualité%')->first()->id,
-				'name' => 'Je crois qu\'on a abusé de moi...'
+				'name' => 'Abus sexuel'
 			));
 
 		// AbusSexuelViolence
 		Subject::create(array(
 			'theme_id' => Theme::where('name', 'like','Relations%')->first()->id,
-				'name' => 'On m\'a battu et abusé.. que faire ???'
+				'name' => 'Violence sexuelle'
 			));
 
 		// ViolanceFamille
 		Subject::create(array(
-			'theme_id' => Theme::where('name', 'like','Relations%')->first()->id,
-				'name' => 'Que faire avec mon père ?'
+			'theme_id' => Theme::where('name', 'like','Famille%')->first()->id,
+				'name' => 'Violence'
 			));
 	}
 }

@@ -17,6 +17,7 @@ class ThemeTableSeeder extends Seeder {
 			['name'=>'Corps et esprit'],
 			['name'=>'Sexualité'],
 			['name'=>'Relations'],
+			['name'=>'Famille']
 		];
 
 		DB::table('themes')->insert($themes);

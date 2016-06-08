@@ -14,33 +14,33 @@ class ResourceTableSeeder extends Seeder {
 		// fonction index pour user
 		Resource::create(array(
 				'name' => 'user'
-				'action' => 'index'
+				,'action' => 'index'
 			));
 
 		Resource::create(array(
 				'name' => 'user'
-				'action' => 'create'
+				,'action' => 'create'
 			));
 
 		Resource::create(array(
 				'name' => 'user'
-				'action' => 'store'
+				,'action' => 'store'
 			));
 		Resource::create(array(
 				'name' => 'user'
-				'action' => 'show'
+				,'action' => 'show'
 			));
 		Resource::create(array(
 				'name' => 'user'
-				'action' => 'edit'
+				,'action' => 'edit'
 			));
 		Resource::create(array(
 				'name' => 'user'
-				'action' => 'update'
+				,'action' => 'update'
 			));
 		Resource::create(array(
 				'name' => 'user'
-				'action' => 'destroy'
+				,'action' => 'destroy'
 			));
 
 
@@ -48,33 +48,33 @@ class ResourceTableSeeder extends Seeder {
 			// Theme
 		Resource::create(array(
 				'name' => 'theme'
-				'action' => 'index'
+				,'action' => 'index'
 			));
 
 		Resource::create(array(
 				'name' => 'theme'
-				'action' => 'create'
+				,'action' => 'create'
 			));
 
 		Resource::create(array(
 				'name' => 'theme'
-				'action' => 'store'
+				,'action' => 'store'
 			));
 		Resource::create(array(
 				'name' => 'theme'
-				'action' => 'show'
+				,'action' => 'show'
 			));
 		Resource::create(array(
 				'name' => 'theme'
-				'action' => 'edit'
+				,'action' => 'edit'
 			));
 		Resource::create(array(
 				'name' => 'theme'
-				'action' => 'update'
+				,'action' => 'update'
 			));
 		Resource::create(array(
 				'name' => 'theme'
-				'action' => 'destroy'
+				,'action' => 'destroy'
 			));
 
 
@@ -82,226 +82,226 @@ class ResourceTableSeeder extends Seeder {
 			// TAG
 		Resource::create(array(
 				'name' => 'tag'
-				'action' => 'index'
+				,'action' => 'index'
 			));
 
 		Resource::create(array(
 				'name' => 'tag'
-				'action' => 'create'
+				,'action' => 'create'
 			));
 
 		Resource::create(array(
 				'name' => 'tag'
-				'action' => 'store'
+				,'action' => 'store'
 			));
 		Resource::create(array(
 				'name' => 'tag'
-				'action' => 'show'
+				,'action' => 'show'
 			));
 		Resource::create(array(
 				'name' => 'tag'
-				'action' => 'edit'
+				,'action' => 'edit'
 			));
 		Resource::create(array(
 				'name' => 'tag'
-				'action' => 'update'
+				,'action' => 'update'
 			));
 		Resource::create(array(
 				'name' => 'tag'
-				'action' => 'destroy'
+				,'action' => 'destroy'
 			));
 
 			// SUBJECT
 		Resource::create(array(
 				'name' => 'subject'
-				'action' => 'index'
+				,'action' => 'index'
 			));
 
 		Resource::create(array(
 				'name' => 'subject'
-				'action' => 'create'
+				,'action' => 'create'
 			));
 
 		Resource::create(array(
 				'name' => 'subject'
-				'action' => 'store'
+				,'action' => 'store'
 			));
 		Resource::create(array(
 				'name' => 'subject'
-				'action' => 'show'
+				,'action' => 'show'
 			));
 		Resource::create(array(
 				'name' => 'subject'
-				'action' => 'edit'
+				,'action' => 'edit'
 			));
 		Resource::create(array(
 				'name' => 'subject'
-				'action' => 'update'
+				,'action' => 'update'
 			));
 		Resource::create(array(
 				'name' => 'subject'
-				'action' => 'destroy'
+				,'action' => 'destroy'
 			));
 
 		// RESPONSE
 		Resource::create(array(
 				'name' => 'response'
-				'action' => 'index'
+				,'action' => 'index'
 			));
 
 		Resource::create(array(
 				'name' => 'response'
-				'action' => 'create'
+				,'action' => 'create'
 			));
 
 		Resource::create(array(
 				'name' => 'response'
-				'action' => 'store'
+				,'action' => 'store'
 			));
 		Resource::create(array(
 				'name' => 'response'
-				'action' => 'show'
+				,'action' => 'show'
 			));
 		Resource::create(array(
 				'name' => 'response'
-				'action' => 'edit'
+				,'action' => 'edit'
 			));
 		Resource::create(array(
 				'name' => 'response'
-				'action' => 'update'
+				,'action' => 'update'
 			));
 		Resource::create(array(
 				'name' => 'response'
-				'action' => 'destroy'
+				,'action' => 'destroy'
 			));
 
 
 		// QUESTION
 		Resource::create(array(
 				'name' => 'question'
-				'action' => 'index'
+				,'action' => 'index'
 			));
 
 		Resource::create(array(
 				'name' => 'question'
-				'action' => 'create'
+				,'action' => 'create'
 			));
 
 		Resource::create(array(
 				'name' => 'question'
-				'action' => 'store'
+				,'action' => 'store'
 			));
 		Resource::create(array(
 				'name' => 'question'
-				'action' => 'show'
+				,'action' => 'show'
 			));
 		Resource::create(array(
 				'name' => 'question'
-				'action' => 'edit'
+				,'action' => 'edit'
 			));
 		Resource::create(array(
 				'name' => 'question'
-				'action' => 'update'
+				,'action' => 'update'
 			));
 		Resource::create(array(
 				'name' => 'question'
-				'action' => 'destroy'
+				,'action' => 'destroy'
 			));
 
 		// GROUP
 		Resource::create(array(
 				'name' => 'group'
-				'action' => 'index'
+				,'action' => 'index'
 			));
 
 		Resource::create(array(
 				'name' => 'group'
-				'action' => 'create'
+				,'action' => 'create'
 			));
 
 		Resource::create(array(
 				'name' => 'group'
-				'action' => 'store'
+				,'action' => 'store'
 			));
 		Resource::create(array(
 				'name' => 'group'
-				'action' => 'show'
+				,'action' => 'show'
 			));
 		Resource::create(array(
 				'name' => 'group'
-				'action' => 'edit'
+				,'action' => 'edit'
 			));
 		Resource::create(array(
 				'name' => 'group'
-				'action' => 'update'
+				,'action' => 'update'
 			));
 		Resource::create(array(
 				'name' => 'group'
-				'action' => 'destroy'
+				,'action' => 'destroy'
 			));
 
 		// COMMENT
 		Resource::create(array(
 				'name' => 'comment'
-				'action' => 'index'
+				,'action' => 'index'
 			));
 
 		Resource::create(array(
 				'name' => 'comment'
-				'action' => 'create'
+				,'action' => 'create'
 			));
 
 		Resource::create(array(
 				'name' => 'comment'
-				'action' => 'store'
+				,'action' => 'store'
 			));
 		Resource::create(array(
 				'name' => 'comment'
-				'action' => 'show'
+				,'action' => 'show'
 			));
 		Resource::create(array(
 				'name' => 'comment'
-				'action' => 'edit'
+				,'action' => 'edit'
 			));
 		Resource::create(array(
 				'name' => 'comment'
-				'action' => 'update'
+				,'action' => 'update'
 			));
 		Resource::create(array(
 				'name' => 'comment'
-				'action' => 'destroy'
+				,'action' => 'destroy'
 			));
 
 		// ORIGIN
 		Resource::create(array(
 				'name' => 'origin'
-				'action' => 'index'
+				,'action' => 'index'
 			));
 
 		Resource::create(array(
 				'name' => 'origin'
-				'action' => 'create'
+				,'action' => 'create'
 			));
 
 		Resource::create(array(
 				'name' => 'origin'
-				'action' => 'store'
+				,'action' => 'store'
 			));
 		Resource::create(array(
 				'name' => 'origin'
-				'action' => 'show'
+				,'action' => 'show'
 			));
 		Resource::create(array(
 				'name' => 'origin'
-				'action' => 'edit'
+				,'action' => 'edit'
 			));
 		Resource::create(array(
 				'name' => 'origin'
-				'action' => 'update'
+				,'action' => 'update'
 			));
 		Resource::create(array(
 				'name' => 'origin'
-				'action' => 'destroy'
+				,'action' => 'destroy'
 			));
 
 
