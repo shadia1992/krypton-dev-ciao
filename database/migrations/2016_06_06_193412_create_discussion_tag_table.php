@@ -10,8 +10,13 @@ class CreateDiscussionTagTable extends Migration {
 		Schema::create('discussion_tag', function(Blueprint $table) {
 			$table->integer('tag_id')->unsigned();
 			$table->integer('discussion_id')->unsigned();
+
+			// clés étrangères
+            
+            $table->primary(['tag_id','discussion_id']);
 		});
 	}
+	
 
 	public function down()
 	{
