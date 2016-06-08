@@ -11,7 +11,7 @@ class CreateResourcesTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->string('action');
-			$table->primary(['name','action']);
+			
 		});
 	}
 

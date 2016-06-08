@@ -43,7 +43,9 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('GroupUserTableSeeder');
 		$this->command->info('Group_User table seeded!');
-		
+
+		$this->call('ResourceTableSeeder');
+		$this->command->info('Ressource table seeded!');
 	}
 }
 >>>>>>> f2e5e1de5eeb5e85be08cc278f5b8b19dc6baba3

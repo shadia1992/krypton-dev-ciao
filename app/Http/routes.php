@@ -11,6 +11,7 @@
 |
 */
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 use App\Models\Theme;
 >>>>>>> f2e5e1de5eeb5e85be08cc278f5b8b19dc6baba3
@@ -32,6 +33,9 @@ Route::get('/dbtest', function () {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 Route::get('/user', 'UserController@index');
 
 Route::post('/user/register', 'UserController@store');
@@ -51,16 +55,15 @@ Route::get('/login', 'AuthController@login');
             
       
         });
-=======
+
 
 Route::get('/user/', 'UserController@index');
 Route::get('/subject/', 'SubjectController@index');
->>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
-=======
+
 
 Route::get('/user/', 'UserController@index');
 Route::get('/subject/', 'SubjectController@index');
->>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
+
 
 
 

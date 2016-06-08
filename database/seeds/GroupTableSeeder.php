@@ -13,7 +13,6 @@ class GroupTableSeeder extends Seeder
     public function run()
     {
 
-        
         DB::table('groups')->delete();
 
         $groups = [
