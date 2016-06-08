@@ -68,5 +68,11 @@ Route::get('/subject/', 'SubjectController@index');
 
 
 
+<<<<<<< HEAD
 
 >>>>>>> f2e5e1de5eeb5e85be08cc278f5b8b19dc6baba3
+=======
+Route::get('/', function () {
+    return view('welcome');
+});
+>>>>>>> b60b0054af1269d82ddfc2d978e15c182627915c

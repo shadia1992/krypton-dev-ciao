@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -17,6 +18,8 @@ class DatabaseSeeder extends Seeder
 }
 =======
 
+=======
+>>>>>>> b60b0054af1269d82ddfc2d978e15c182627915c
 class DatabaseSeeder extends Seeder {
 
 	public function run()
@@ -48,4 +51,7 @@ class DatabaseSeeder extends Seeder {
 		$this->command->info('Ressource table seeded!');
 	}
 }
+<<<<<<< HEAD
 >>>>>>> f2e5e1de5eeb5e85be08cc278f5b8b19dc6baba3
+=======
+>>>>>>> b60b0054af1269d82ddfc2d978e15c182627915c
