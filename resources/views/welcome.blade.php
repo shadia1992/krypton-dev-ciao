@@ -38,7 +38,13 @@
     <body>
         <div class="container">
             <div class="content">
+<<<<<<< HEAD
                 <div class="title">Laravel 5</div>
+=======
+                <div class="title">Test Daniel</div>
+                <h2>Ceci est un test, gros con</h2>
+                <h2>Oui, ça marche</h2>
+>>>>>>> f2e5e1de5eeb5e85be08cc278f5b8b19dc6baba3
             </div>
         </div>
     </body>
