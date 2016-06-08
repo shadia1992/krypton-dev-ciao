@@ -10,23 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-use App\Models\Theme;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dbtest', function () {
-    if(DB::connection()->getDatabaseName())
-    {
-        echo "connected sucessfully to database ".DB::connection()->getDatabaseName();
-        return 	Theme::where('name', 'like','Sexualité%')->first()->id;
-
-    }
-});
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 Route::get('/user', 'UserController@index');
 
 Route::post('/user/register', 'UserController@store');
@@ -46,16 +30,14 @@ Route::get('/login', 'AuthController@login');
             
       
         });
-=======
 
 Route::get('/user/', 'UserController@index');
 Route::get('/subject/', 'SubjectController@index');
->>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
-=======
+
 
 Route::get('/user/', 'UserController@index');
 Route::get('/subject/', 'SubjectController@index');
->>>>>>> 4f7ba9ef4c259c657984087123453cdb52e93ff7
+
 
 
 

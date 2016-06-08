@@ -19,7 +19,7 @@ class ResourceTableSeeder extends Seeder {
 
 		Resource::create(array(
 				'name' => 'user'
-				'action' => 'create's
+				'action' => 'create'
 			));
 
 		Resource::create(array(
@@ -143,35 +143,164 @@ class ResourceTableSeeder extends Seeder {
 				'action' => 'destroy'
 			));
 
-		// SUBJECT
+		// RESPONSE
 		Resource::create(array(
-				'name' => 'subject'
+				'name' => 'response'
 				'action' => 'index'
 			));
 
 		Resource::create(array(
-				'name' => 'subject'
+				'name' => 'response'
 				'action' => 'create'
 			));
 
 		Resource::create(array(
-				'name' => 'subject'
+				'name' => 'response'
 				'action' => 'store'
 			));
 		Resource::create(array(
-				'name' => 'subject'
+				'name' => 'response'
 				'action' => 'show'
 			));
 		Resource::create(array(
-				'name' => 'subject'
+				'name' => 'response'
 				'action' => 'edit'
 			));
 		Resource::create(array(
-				'name' => 'subject'
+				'name' => 'response'
 				'action' => 'update'
 			));
 		Resource::create(array(
-				'name' => 'subject'
+				'name' => 'response'
+				'action' => 'destroy'
+			));
+
+
+		// QUESTION
+		Resource::create(array(
+				'name' => 'question'
+				'action' => 'index'
+			));
+
+		Resource::create(array(
+				'name' => 'question'
+				'action' => 'create'
+			));
+
+		Resource::create(array(
+				'name' => 'question'
+				'action' => 'store'
+			));
+		Resource::create(array(
+				'name' => 'question'
+				'action' => 'show'
+			));
+		Resource::create(array(
+				'name' => 'question'
+				'action' => 'edit'
+			));
+		Resource::create(array(
+				'name' => 'question'
+				'action' => 'update'
+			));
+		Resource::create(array(
+				'name' => 'question'
+				'action' => 'destroy'
+			));
+
+		// GROUP
+		Resource::create(array(
+				'name' => 'group'
+				'action' => 'index'
+			));
+
+		Resource::create(array(
+				'name' => 'group'
+				'action' => 'create'
+			));
+
+		Resource::create(array(
+				'name' => 'group'
+				'action' => 'store'
+			));
+		Resource::create(array(
+				'name' => 'group'
+				'action' => 'show'
+			));
+		Resource::create(array(
+				'name' => 'group'
+				'action' => 'edit'
+			));
+		Resource::create(array(
+				'name' => 'group'
+				'action' => 'update'
+			));
+		Resource::create(array(
+				'name' => 'group'
+				'action' => 'destroy'
+			));
+
+		// COMMENT
+		Resource::create(array(
+				'name' => 'comment'
+				'action' => 'index'
+			));
+
+		Resource::create(array(
+				'name' => 'comment'
+				'action' => 'create'
+			));
+
+		Resource::create(array(
+				'name' => 'comment'
+				'action' => 'store'
+			));
+		Resource::create(array(
+				'name' => 'comment'
+				'action' => 'show'
+			));
+		Resource::create(array(
+				'name' => 'comment'
+				'action' => 'edit'
+			));
+		Resource::create(array(
+				'name' => 'comment'
+				'action' => 'update'
+			));
+		Resource::create(array(
+				'name' => 'comment'
+				'action' => 'destroy'
+			));
+
+		// ORIGIN
+		Resource::create(array(
+				'name' => 'origin'
+				'action' => 'index'
+			));
+
+		Resource::create(array(
+				'name' => 'origin'
+				'action' => 'create'
+			));
+
+		Resource::create(array(
+				'name' => 'origin'
+				'action' => 'store'
+			));
+		Resource::create(array(
+				'name' => 'origin'
+				'action' => 'show'
+			));
+		Resource::create(array(
+				'name' => 'origin'
+				'action' => 'edit'
+			));
+		Resource::create(array(
+				'name' => 'origin'
+				'action' => 'update'
+			));
+		Resource::create(array(
+				'name' => 'origin'
 				'action' => 'destroy'
 			));
 
@@ -181,17 +310,4 @@ class ResourceTableSeeder extends Seeder {
 	}
 }
 
-
-class ResourceTableSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        //
-    }
-}
 
