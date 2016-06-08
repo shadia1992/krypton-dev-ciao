@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Group;
 
 class GroupTableSeeder extends Seeder
 {
@@ -11,6 +12,17 @@ class GroupTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+
+        DB::table('groups')->delete();
+
+        $groups = [
+            ['name'=>'guest'],
+            ['name'=>'admin'],
+            ['name'=>'specialist'],
+            ['name'=>'contributor'],
+            ['name'=>'authenticated']
+        ];
+
+        DB::table('groups')->insert($groups);
     }
 }
