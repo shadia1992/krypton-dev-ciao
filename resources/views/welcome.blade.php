@@ -38,9 +38,13 @@
     <body>
         <div class="container">
             <div class="content">
+<<<<<<< 424b323dfd756b75a62d7058254fc0d212d3186e
                 <div class="title">Test Daniel</div>
                 <h2>Ceci est un test, gros con</h2>
                 <h2>Oui, ça marche</h2>
+=======
+                <div class="title">Laravel 5</div>
+>>>>>>> Get proj
             </div>
         </div>
     </body>
