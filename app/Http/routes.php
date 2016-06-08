@@ -11,7 +11,6 @@
 |
 */
 
-<<<<<<< 424b323dfd756b75a62d7058254fc0d212d3186e
 Route::get('/user', 'UserController@index');
 
 Route::post('/user/register', 'UserController@store');
@@ -44,9 +43,6 @@ Route::get('/subject/', 'SubjectController@index');
 
 
 
-
-=======
 Route::get('/', function () {
     return view('welcome');
 });
->>>>>>> Get proj
