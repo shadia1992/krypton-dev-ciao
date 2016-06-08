@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Controller as BaseController;
-
-class ThemeController extends BaseController {
+class ThemeController extends Controller {
 
   /**
    * Display a listing of the resource.
@@ -13,7 +11,7 @@ class ThemeController extends BaseController {
    */
   public function index()
   {
-    
+    return('fonction index de theme controleur');
   }
 
   /**
@@ -23,7 +21,7 @@ class ThemeController extends BaseController {
    */
   public function create()
   {
-    
+    return('fonction create de theme controleur');
   }
 
   /**

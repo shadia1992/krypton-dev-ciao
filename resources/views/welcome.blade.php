@@ -38,9 +38,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Test Daniel</div>
-                <h2>Ceci est un test, gros con</h2>
-                <h2>Oui, ça marche</h2>
+                <div class="title">Krypton</div>
+                <h2>Parce que nous cryptons =)</h2>
             </div>
         </div>
     </body>
