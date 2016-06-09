@@ -20,7 +20,7 @@ class AuthController extends Controller
             return 'login failed, user existe pas ';
         }
         // Check password
-       if ($password != $user->password) {
+       if (!Hash::check($password,$user->password)) {
            return 'login failed, pas le bon mot de passe';
        }
        // Auth persistance

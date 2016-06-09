@@ -13,17 +13,23 @@ class DatabaseSeeder extends Seeder {
 		$this->call('OriginTableSeeder');
 		$this->command->info('Origin table seeded!');
 
+		$this->call('UserTableSeeder');
+		$this->command->info('User table seeded!');
+
 		$this->call('GroupTableSeeder');
 		$this->command->info('Group table seeded!');
 
-		$this->call('UserTableSeeder');
-		$this->command->info('User table seeded!');
+		$this->call('TagTableSeeder');
+		$this->command->info('Tag table seeded!');
 
 		$this->call('GroupUserTableSeeder');
 		$this->command->info('Group_User table seeded!');
 
 		$this->call('ResourceTableSeeder');
 		$this->command->info('Ressource table seeded!');
+
+		$this->call('GroupResourceTableSeeder');
+		$this->command->info('Group_Ressource table seeded!');
 
 		//SEED CONTENT
 		$this->call('ThemeTableSeeder');
@@ -52,7 +58,6 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('QuestionTagTableSeeder');
 		$this->command->info('question_tag table seeded!');
-
 
 	}
 }
