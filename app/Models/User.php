@@ -66,6 +66,7 @@ class User extends Model {
         'phone_number' => $fields['phone_number'],
         'password' => $fields['password'],
         'origin_id' => $fields['origin_id']
+
         	],
     		[
         'name' => 'max:20|required',
@@ -94,17 +95,18 @@ class User extends Model {
 		}
 	}
 
-	public static function getGroup(){
-		$user = User::find(Session::get('id'));
+	public static function isAdmin(){
 		$isAdmin = false;
-		$groups = $user->groups;
-		foreach($groups as $group){
-			if($group->name = 'admin'){
-				$isAdmin = true;
+		if(null!==(Session::get('id'))){
+			$user = User::find(Session::get('id'));
+			$groups = $user->groups;
+			foreach($groups as $group){
+				if($group->name == 'admin'){
+					$isAdmin = true;
+				}
 			}
-
 		}
-		dd($isAdmin);
+		return $isAdmin;
 		//dd($groups);
 		//$ids = $groups->get('id');
 		
