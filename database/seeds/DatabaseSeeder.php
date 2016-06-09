@@ -8,11 +8,7 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		$this->call('ThemeTableSeeder');
-		$this->command->info('Theme table seeded!');
-
-		$this->call('SubjectTableSeeder');
-		$this->command->info('Subject table seeded!');
+		//SEED USERS, GROUPES, RESSOURCES
 
 		$this->call('OriginTableSeeder');
 		$this->command->info('Origin table seeded!');
@@ -23,13 +19,28 @@ class DatabaseSeeder extends Seeder {
 		$this->call('UserTableSeeder');
 		$this->command->info('User table seeded!');
 
-		$this->call('TagTableSeeder');
-		$this->command->info('Tag table seeded!');
-
 		$this->call('GroupUserTableSeeder');
 		$this->command->info('Group_User table seeded!');
 
 		$this->call('ResourceTableSeeder');
 		$this->command->info('Ressource table seeded!');
+
+		//SEED CONTENT
+		$this->call('ThemeTableSeeder');
+		$this->command->info('Theme table seeded!');
+
+		$this->call('SubjectTableSeeder');
+		$this->command->info('Subject table seeded!');
+
+		$this->call('TagTableSeeder');
+		$this->command->info('Tag table seeded!');
+
+		$this->call('QuestionTableSeeder');
+		$this->command->info('Question table seeded!');
+
+		$this->call('ResponseTableSeeder');
+		$this->command->info('Response table seeded!');
+		
 	}
 }
+

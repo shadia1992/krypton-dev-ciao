@@ -38,6 +38,7 @@
     <body>
         <div class="container">
             <div class="content">
+
                 <div class="title">Krypton</div>
                 <h2>Parce que nous cryptons =)</h2>
             </div>

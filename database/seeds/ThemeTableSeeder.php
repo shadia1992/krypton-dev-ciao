@@ -11,13 +11,14 @@ class ThemeTableSeeder extends Seeder {
 
 		$themes = [
 			['name'=>'Actualité'],
-			['name'=>'Boisson, fumée, drogue'],
+			['name'=>'Santé et forme'],
 			['name'=>'Internet'],
-			['name'=>'Manger et bouger'],
 			['name'=>'Corps et esprit'],
 			['name'=>'Sexualité'],
-			['name'=>'Relations'],
-			['name'=>'Famille']
+			['name'=>'Formation'],
+			['name'=>'Famille'],
+			['name'=>'Argent'],
+			['name'=>'Amour et relations']
 		];
 
 		DB::table('themes')->insert($themes);
