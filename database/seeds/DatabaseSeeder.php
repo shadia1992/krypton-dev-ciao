@@ -35,3 +35,4 @@ class DatabaseSeeder extends Seeder {
 		$this->command->info('Group_Ressource table seeded!');
 	}
 }
+
