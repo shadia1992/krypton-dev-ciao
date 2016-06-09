@@ -38,9 +38,6 @@ class DatabaseSeeder extends Seeder {
 		$this->call('SubjectTableSeeder');
 		$this->command->info('Subject table seeded!');
 
-		$this->call('TagTableSeeder');
-		$this->command->info('Tag table seeded!');
-
 		$this->call('QuestionTableSeeder');
 		$this->command->info('Question table seeded!');
 
