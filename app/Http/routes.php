@@ -24,7 +24,8 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('/login', function () {
     	return 'ceci est la page de login';
 	});
-	//Route::get('/login', 'AuthController@login');
+    
+	Route::get('/auth/login', 'AuthController@login');
 
     Route::group(['middleware' => ['auth']], function () {
         
