@@ -10,6 +10,8 @@ class CreateCommentsTable extends Migration {
 		Schema::create('comments', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned()->nullable();
+			$table->integer('ref_id')->unsigned()->nullable();
+			$table->boolean('isRefComment')->default(false);
 			$table->text('content');
 			$table->integer('score');
 			$table->boolean('moderated');
