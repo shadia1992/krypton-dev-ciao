@@ -20,6 +20,7 @@ class GroupTableSeeder extends Seeder
             ['name'=>'admin'],
             ['name'=>'specialist'],
             ['name'=>'moderator'],
+            ['name'=>'institution']
         ];
 
         DB::table('groups')->insert($groups);

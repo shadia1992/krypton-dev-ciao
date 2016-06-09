@@ -38,7 +38,11 @@ class UserController extends Controller {
    */
   public function create()
   {
+<<<<<<< HEAD
     return view('users');
+=======
+    return view('auth/register');
+>>>>>>> master
   }
 
   /**
@@ -95,7 +99,7 @@ class UserController extends Controller {
    * @param  int  $id
    * @return Response
    */
-  public function show()
+  public function show($id)
   {
     $user = User::find(Session::get('id'));
        return $user;
