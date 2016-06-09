@@ -10,18 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class Authenticate
 {
-<<<<<<< HEAD
-       /**
-        * Handle an incoming request.
-        *
-        * @param  \Illuminate\Http\Request  $request
-        * @param  \Closure  $next
-        * @param  string|null  $guard
-        * @return mixed
-        */
-       public function handle($request, Closure $next, $guard = null)
-       {
-=======
     /**
      * Handle an incoming request.
      *
@@ -32,7 +20,6 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
->>>>>>> master
 
        $userId = Session::get('id');
        if (!isset($userId)) {
