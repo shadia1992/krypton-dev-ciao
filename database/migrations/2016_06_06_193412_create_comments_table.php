@@ -11,7 +11,7 @@ class CreateCommentsTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned()->nullable();
 			$table->integer('ref_id')->unsigned()->nullable();
-			$table->boolean('isRefComment')->default(false);
+			$table->enum('reference', array('DISCUSSION', 'COMMENT'));
 			$table->text('content');
 			$table->integer('score');
 			$table->boolean('moderated');

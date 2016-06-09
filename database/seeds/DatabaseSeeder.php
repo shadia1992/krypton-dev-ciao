@@ -44,6 +44,15 @@ class DatabaseSeeder extends Seeder {
 		$this->call('DiscussionTableSeeder');
 		$this->command->info('Discussion table seeded!');
 
+		$this->call('CommentTableSeeder');
+		$this->command->info('Comment table seeded!');
+
+		$this->call('DiscussionTagTableSeeder');
+		$this->command->info('discussion_tag table seeded!');
+
+		$this->call('QuestionTagTableSeeder');
+		$this->command->info('question_tag table seeded!');
+
 
 	}
 }

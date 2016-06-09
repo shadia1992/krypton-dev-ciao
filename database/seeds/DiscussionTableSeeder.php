@@ -26,8 +26,8 @@ class DiscussionTableSeeder extends Seeder
         Discussion::create([
             'title' => 'J\'ai 15 ans et je bois souvent c\'est comme une habitude :(',
             'content' => 'Bonjour, je sais que l\'alcool est dangeureux et est interdit au moins de 18 ans...Mais je vais à beaucoup de soirée avec de la vodka la plupart du temps. Je me réveil chaques samedi ou dimanche matin avec un affreux mal de crâne et sans souvenirs de ce que j\'ai pu faire la veille. Je sais que ce n\'est pas un bon comportement surtout vu mon âge...Mais je n\'arrive pas à dire non à mes amis et me laisse entraîner dans leurs folies :( Quelqu\'un pourrait-il m\'aider? Merci bcp. ',
-            'moderated' => 'false',
-            'score' => '0',
+            'moderated' => 'true',
+            'score' => '5',
             'subject_id' => Subject::where('name', 'like', 'Alcool%')->first()->id,
             'user_id' => User::where('name', 'like', 'msal%')->first()->id
         ]);
