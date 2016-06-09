@@ -40,7 +40,11 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('ResponseTableSeeder');
 		$this->command->info('Response table seeded!');
-		
+
+		$this->call('DiscussionTableSeeder');
+		$this->command->info('Discussion table seeded!');
+
+
 	}
 }
 

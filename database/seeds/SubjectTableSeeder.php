@@ -51,6 +51,16 @@ class SubjectTableSeeder extends Seeder {
 			));
 
 		Subject::create(array(
+			'theme_id' => Theme::where('name', 'like','Internet%')->first()->id,
+			'name' => 'Youtube'
+		));
+
+		Subject::create(array(
+			'theme_id' => Theme::where('name', 'like','Internet%')->first()->id,
+			'name' => 'Pornographie'
+		));
+
+		Subject::create(array(
 			'theme_id' => Theme::where('name', 'like','Santé et forme%')->first()->id,
 			'name' => 'Drogue'
 		));

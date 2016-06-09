@@ -3,14 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Discussion extends Model {
 
 	protected $table = 'discussions';
 	public $timestamps = true;
-
-	use SoftDeletingTrait;
 
 	protected $dates = ['deleted_at'];
 
