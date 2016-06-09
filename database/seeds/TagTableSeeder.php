@@ -41,6 +41,16 @@ class TagTableSeeder extends Seeder
             ['name'=>'racisme'],
             ['name'=>'école'],
             ['name'=>'études'],
+            ['name'=>'internet'],
+            ['name'=>'youtube'],
+            ['name'=>'scarification'],
+            ['name'=>'vacances'],
+            ['name'=>'loisirs'],
+            ['name'=>'grossesse'],
+            ['name'=>'angoisse'],
+            ['name'=>'apprentissage'],
+
+
         ];
 
         DB::table('tags')->insert($tags);
