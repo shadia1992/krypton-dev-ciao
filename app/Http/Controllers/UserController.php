@@ -38,11 +38,10 @@ class UserController extends Controller {
    */
   public function create()
   {
-<<<<<<< HEAD
+
     return view('users');
-=======
     return view('auth/register');
->>>>>>> master
+
   }
 
   /**
