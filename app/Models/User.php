@@ -96,7 +96,7 @@ class User extends Model {
 
 	public static function getGroup(){
 		$user = User::find(Session::get('id'));
-		//dd($user);
+		$isAdmin = false;
 		$groups = $user->groups;
 		foreach($groups as $group){
 			if($group->name = 'admin'){
