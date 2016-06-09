@@ -49,6 +49,7 @@ class UserController extends Controller {
   public function store(Request $request)
   {
     User::getGroup();
+    dd("coucou");
      //echo "coucou";
     //$fields = $request::only('name','email','sex','birth_year', 'phone_number','password','origin_id');
     $fields = $request::all();
@@ -58,6 +59,7 @@ class UserController extends Controller {
 
       //dd($userExists);
         if (!$userExists) {
+              $fields['password'] = bcrypt($fields['password']); 
               $user = new User($fields);
               $group = Group::find(1);
               $group->users()->save($user);

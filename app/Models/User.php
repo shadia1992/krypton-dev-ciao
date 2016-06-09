@@ -99,9 +99,13 @@ class User extends Model {
 		//dd($user);
 		$groups = $user->groups;
 		foreach($groups as $group){
-			dd($group->id);
+			if($group->name = 'admin'){
+				$isAdmin = true;
+			}
+
 		}
-		dd($groups);
+		dd($isAdmin);
+		//dd($groups);
 		//$ids = $groups->get('id');
 		
 
