@@ -11,7 +11,7 @@ class ThemeController extends Controller {
    */
   public function index()
   {
-    return('fonction index de theme controleur');
+    echo "index";
   }
 
   /**
@@ -21,7 +21,7 @@ class ThemeController extends Controller {
    */
   public function create()
   {
-    return('fonction create de theme controleur');
+    echo "create";
   }
 
   /**
@@ -31,7 +31,7 @@ class ThemeController extends Controller {
    */
   public function store()
   {
-    
+
   }
 
   /**
@@ -42,7 +42,7 @@ class ThemeController extends Controller {
    */
   public function show($id)
   {
-    
+    echo "show";
   }
 
   /**

@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder {
 		$this->call('OriginTableSeeder');
 		$this->command->info('Origin table seeded!');
 
-		$this->call('GroupTableSeeder');
-		$this->command->info('Group table seeded!');
-
 		$this->call('UserTableSeeder');
 		$this->command->info('User table seeded!');
+
+		$this->call('GroupTableSeeder');
+		$this->command->info('Group table seeded!');
 
 		$this->call('TagTableSeeder');
 		$this->command->info('Tag table seeded!');
@@ -31,5 +31,7 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('ResourceTableSeeder');
 		$this->command->info('Ressource table seeded!');
+		$this->call('GroupResourceTableSeeder');
+		$this->command->info('Group_Ressource table seeded!');
 	}
 }

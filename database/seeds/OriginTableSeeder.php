@@ -6,11 +6,10 @@ class OriginTableSeeder extends Seeder {
 	
 	public function run() 
 	{
-		//DB::table('origin')->delete();
+		DB::table('origins')->delete();
 
 		$countries = array(
-			array('code' => 'US', 'name' => 'United States'),
-			array('code' => 'CA', 'name' => 'Canada'),
+			array('code' => 'CH', 'name' => 'Switzerland'),
 			array('code' => 'AF', 'name' => 'Afghanistan'),
 			array('code' => 'AL', 'name' => 'Albania'),
 			array('code' => 'DZ', 'name' => 'Algeria'),
@@ -48,6 +47,7 @@ class OriginTableSeeder extends Seeder {
 			array('code' => 'BI', 'name' => 'Burundi'),
 			array('code' => 'KH', 'name' => 'Cambodia'),
 			array('code' => 'CM', 'name' => 'Cameroon'),
+			array('code' => 'CA', 'name' => 'Canada'),
 			array('code' => 'CV', 'name' => 'Cape Verde'),
 			array('code' => 'KY', 'name' => 'Cayman Islands'),
 			array('code' => 'CF', 'name' => 'Central African Republic'),
@@ -216,7 +216,6 @@ class OriginTableSeeder extends Seeder {
 			array('code' => 'SJ', 'name' => 'Svalbarn and Jan Mayen Islands'),
 			array('code' => 'SZ', 'name' => 'Swaziland'),
 			array('code' => 'SE', 'name' => 'Sweden'),
-			array('code' => 'CH', 'name' => 'Switzerland'),
 			array('code' => 'SY', 'name' => 'Syrian Arab Republic'),
 			array('code' => 'TW', 'name' => 'Taiwan'),
 			array('code' => 'TJ', 'name' => 'Tajikistan'),
@@ -235,6 +234,7 @@ class OriginTableSeeder extends Seeder {
 			array('code' => 'UA', 'name' => 'Ukraine'),
 			array('code' => 'AE', 'name' => 'United Arab Emirates'),
 			array('code' => 'GB', 'name' => 'United Kingdom'),
+			array('code' => 'US', 'name' => 'United States'),
 			array('code' => 'UM', 'name' => 'United States minor outlying islands'),
 			array('code' => 'UY', 'name' => 'Uruguay'),
 			array('code' => 'UZ', 'name' => 'Uzbekistan'),

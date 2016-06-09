@@ -9,7 +9,7 @@ class ResourceTableSeeder extends Seeder {
 
 	public function run()
 	{
-		//DB::table('themes')->delete();
+		DB::table('resources')->delete();
 
 		// fonction index pour user
 		Resource::create(array(
@@ -272,8 +272,40 @@ class ResourceTableSeeder extends Seeder {
 				,'action' => 'destroy'
 			));
 
-		// ORIGIN
+		// DISCUSSION
 		Resource::create(array(
+				'name' => 'discussion'
+				,'action' => 'index'
+			));
+
+		Resource::create(array(
+				'name' => 'discussion'
+				,'action' => 'create'
+			));
+
+		Resource::create(array(
+				'name' => 'discussion'
+				,'action' => 'store'
+			));
+		Resource::create(array(
+				'name' => 'discussion'
+				,'action' => 'show'
+			));
+		Resource::create(array(
+				'name' => 'discussion'
+				,'action' => 'edit'
+			));
+		Resource::create(array(
+				'name' => 'discussion'
+				,'action' => 'update'
+			));
+		Resource::create(array(
+				'name' => 'discussion'
+				,'action' => 'destroy'
+			));
+
+		// ORIGIN
+		/*Resource::create(array(
 				'name' => 'origin'
 				,'action' => 'index'
 			));
@@ -303,6 +335,7 @@ class ResourceTableSeeder extends Seeder {
 				'name' => 'origin'
 				,'action' => 'destroy'
 			));
+		*/
 
 
 

@@ -8,7 +8,7 @@ class SubjectTableSeeder extends Seeder {
 
 	public function run()
 	{
-		//DB::table('subjects')->delete();
+		DB::table('subjects')->delete();
 
 		// Contraception
 		Subject::create([
