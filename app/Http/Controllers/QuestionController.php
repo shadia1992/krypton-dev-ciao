@@ -13,6 +13,7 @@ class QuestionController extends BaseController {
    */
   public function index()
   {
+
     
   }
 
