@@ -20,84 +20,6 @@ use DB;
 
 class UserController extends Controller {
 
-<<<<<<< HEAD
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    $isAdmin = User::getGroup();
-    if($isAdmin){
-      $users = User::all();
-      return $users;
-    }else{
-      echo "Tu peux pas voir tous les users, t'es pas Admin";
-    }
-    
-  }
-
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-
-    return view('users');
-    return view('auth/register');
-
-  }
-
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  public function store(Request $request)
-  {
-    
-        $fields = $request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
-
-        $validator = User::getVali($fields);
-
-        if(null==(Session::get('id')) || User::isAdmin()){
-
-          if($validator){
-
-            $userExists = User::userExists($fields);
-
-            if (!$userExists) {
-
-                  $fields['password'] = bcrypt($fields['password']); 
-
-                  $user = new User($fields);
-
-                  if(User::isAdmin()){
-                    $tab = $request::only('group_id');
-                    $group = Group::find($tab['group_id']);
-                  }else{
-                    $group = Group::find(1);
-                  }
-                  $group->users()->save($user);
-                  $user->save();
-                  return $user;
-            } else {
-              echo "Pseudo existant, on redirige vers la vue de création";
-            }       
-          }else{
-            echo "Pas de respect des contraintes d'ajout, on redirige la vue création";
-          }
-        }else{
-          echo "Vous etes déjà loggés ou vous n'étes pas Admin pour créer un nouvel user";
-        }
-    
-      
-  }
-    
-=======
     /**
      * Display a listing of the resource.
      *
@@ -105,8 +27,14 @@ class UserController extends Controller {
      */
     public function index()
     {
-        $users = User::all();
-        return $users;
+        $isAdmin = User::getGroup();
+        if($isAdmin){
+            $users = User::all();
+            return $users;
+        }else{
+            echo "Tu peux pas voir tous les users, t'es pas Admin";
+        }
+
     }
 
     /**
@@ -129,31 +57,45 @@ class UserController extends Controller {
      */
     public function store(Request $request)
     {
-        User::getGroup();
-        dd("coucou");
-        //echo "coucou";
-        //$fields = $request::only('name','email','sex','birth_year', 'phone_number','password','origin_id');
-        $fields = $request::all();
-        $validator = User::getVali($fields);
-        if($validator){
-            $userExists = User::userExists($fields);
 
-            //dd($userExists);
-            if (!$userExists) {
-                $fields['password'] = bcrypt($fields['password']);
-                $user = new User($fields);
-                $group = Group::find(1);
-                $group->users()->save($user);
-                $user->save();
-                return $user;
-            } else {
-                echo "Pseudo existant, on redirige vers la vue de création";
+        $fields = $request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
+
+        $validator = User::getVali($fields);
+
+        if(null==(Session::get('id')) || User::isAdmin()){
+
+            if($validator){
+
+                $userExists = User::userExists($fields);
+
+                if (!$userExists) {
+
+                    $fields['password'] = bcrypt($fields['password']);
+
+                    $user = new User($fields);
+
+                    if(User::isAdmin()){
+                        $tab = $request::only('group_id');
+                        $group = Group::find($tab['group_id']);
+                    }else{
+                        $group = Group::find(1);
+                    }
+                    $group->users()->save($user);
+                    $user->save();
+                    return $user;
+                } else {
+                    echo "Pseudo existant, on redirige vers la vue de création";
+                }
+            }else{
+                echo "Pas de respect des contraintes d'ajout, on redirige la vue création";
             }
-        }else
-            echo "Pas de respect des contraintes d'ajout, on redirige la vue création";
+        }else{
+            echo "Vous etes déjà loggés ou vous n'étes pas Admin pour créer un nouvel user";
+        }
+
+
     }
 
->>>>>>> dev_pa
     /*$this->validate($request, [
          'name' => 'max:20|required',
         'email' => 'max:50',
@@ -165,95 +107,6 @@ class UserController extends Controller {
     ]);*/
     //dd($this);
 
-<<<<<<< HEAD
-      
-      //$validate = User::getValidation($fields);
-        // En cas d'échec du validateur, on redirige avec les erreurs et les inputs
-        //$users = DB::table('users')->where('name', '=', $fields['name'])->exists();
-        
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    $user = User::find(Session::get('id'));
-       return $user;
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    $isAdmin = User::isAdmin();
-    if($isAdmin){
-      echo "Affiche la fiche de l'user par rapport à l'id choisi";
-    }else{
-      echo "Afficher coorespondant à la session de l'user en question connecté";
-    }
-  }
-
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    $fields = $request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
-
-        $validator = User::getVali($fields);
-
-       
-
-          if($validator){
-
-            $userExists = User::userExists($fields);
-
-            if (!$userExists) {
-
-                  $fields['password'] = bcrypt($fields['password']); 
-
-                  $user = new User($fields);
-
-                  if(User::isAdmin()){
-                    $tab = $request::only('group_id');
-                    $group = Group::find($tab['group_id']);
-                  }else{
-                    $group = Group::find(1);
-                  }
-                  $group->users()->save($user);
-                  $user->save();
-                  return $user;
-            } else {
-              echo "Pseudo existant, on redirige vers la vue d'edit";
-            }       
-          }else{
-            echo "Pas de respect des contraintes d'ajout, on redirige la vue d'edit";
-          }
-       
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    
-  }
-  
-=======
 
     //$validate = User::getValidation($fields);
     // En cas d'échec du validateur, on redirige avec les erreurs et les inputs
@@ -278,9 +131,14 @@ class UserController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-
+        $isAdmin = User::isAdmin();
+        if($isAdmin){
+            echo "Affiche la fiche de l'user par rapport à l'id choisi";
+        }else{
+            echo "Afficher coorespondant à la session de l'user en question connecté";
+        }
     }
 
     /**
@@ -289,8 +147,39 @@ class UserController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update()
+    public function update($id)
     {
+        $fields = $request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
+
+        $validator = User::getVali($fields);
+
+
+
+        if($validator){
+
+            $userExists = User::userExists($fields);
+
+            if (!$userExists) {
+
+                $fields['password'] = bcrypt($fields['password']);
+
+                $user = new User($fields);
+
+                if(User::isAdmin()){
+                    $tab = $request::only('group_id');
+                    $group = Group::find($tab['group_id']);
+                }else{
+                    $group = Group::find(1);
+                }
+                $group->users()->save($user);
+                $user->save();
+                return $user;
+            } else {
+                echo "Pseudo existant, on redirige vers la vue d'edit";
+            }
+        }else{
+            echo "Pas de respect des contraintes d'ajout, on redirige la vue d'edit";
+        }
 
     }
 
@@ -305,7 +194,6 @@ class UserController extends Controller {
 
     }
 
->>>>>>> dev_pa
 }
 
 ?>
