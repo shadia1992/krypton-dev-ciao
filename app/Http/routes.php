@@ -30,7 +30,11 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('/login', function () {
     	return view('auth/login');
 	});
+<<<<<<< HEAD
+    
+=======
 	
+>>>>>>> master
 	Route::get('/auth/login', 'AuthController@login');
 
     Route::group(['middleware' => ['auth']], function () {
