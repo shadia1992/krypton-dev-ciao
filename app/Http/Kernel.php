@@ -28,23 +28,7 @@ class Kernel extends HttpKernel
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-<<<<<<< HEAD
             //\App\Http\Middleware\VerifyCsrfToken::class,
-
-=======
-            \App\Http\Middleware\VerifyCsrfToken::class,
-
-            //\App\Http\Middleware\VerifyCsrfToken::class,
-
-            //\App\Http\Middleware\VerifyCsrfToken::class,
-
-            \App\Http\Middleware\VerifyCsrfToken::class,
-
-
-            //\App\Http\Middleware\VerifyCsrfToken::class,
-
-            \App\Http\Middleware\VerifyCsrfToken::class,
->>>>>>> 1b68c1c499175e57452224dd43ac0db2bbe13982
         ],
 
         'api' => [

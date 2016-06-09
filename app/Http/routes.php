@@ -105,6 +105,7 @@ Route::group(['middleware' => ['web']], function () {
         });
     });
 
+
 	Route::get('/user/create', 'UserController@create');
 	Route::post('/user', 'UserController@store');
 
@@ -123,4 +124,5 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('/discussion/{id}', 'DiscussionController@show');
 	Route::get('/question/{id}', 'QuestionController@show');
 	Route::get('/comment/{id}', 'CommentController@show');
+
 });
