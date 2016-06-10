@@ -1,5 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
-<h2>Ceci est la page de login</h2>
+
 @endsection

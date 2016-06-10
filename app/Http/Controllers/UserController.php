@@ -1,17 +1,18 @@
 <?php
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
-//use Illuminate\Routing\Controller as BaseController;
 use App\Models\Origin;
 use App\Models\User;
 use App\Models\Group;
 use Session;
-//use Illuminate\Http\Request;
-use Request;
+use Illuminate\Http\Request;
 use Validator;
 use DB;
 use Hash;
+use Redirect;
+use Input;
 class UserController extends Controller {
+    
     /**
      * Display a listing of the resource.
      *
@@ -19,15 +20,9 @@ class UserController extends Controller {
      */
     public function index()
     {
-        $isAdmin = User::getGroup();
-        if($isAdmin){
-            $users = User::all();
-            return $users;
-        }else{
-            echo "Tu peux pas voir tous les users, t'es pas Admin";
-        }
-
+        return view('user/index');
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,9 +30,9 @@ class UserController extends Controller {
      */
     public function create()
     {
-        return view('users');
-        return view('auth/register');
+        return view('user/create');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -45,51 +40,28 @@ class UserController extends Controller {
      */
     public function store(Request $request)
     {
-
-        $fields = $request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
-        $validator = User::getVali($fields);
-        if(null==(Session::get('id')) || User::isAdmin()){
-            if($validator){
-                $userExists = User::userExists($fields);
-                if (!$userExists) {
-                    $fields['password'] = bcrypt($fields['password']);
-                    $user = new User($fields);
-                    if(User::isAdmin()){
-                        $tab = $request::only('group_id');
-                        $group = Group::find($tab['group_id']);
-                    }else{
-                        $group = Group::find(1);
-                    }
-                    $group->users()->save($user);
-                    $user->save();
-                    return $user;
-                } else {
-                    echo "Pseudo existant, on redirige vers la vue de création";
-                }
-            }else{
-                echo "Pas de respect des contraintes d'ajout, on redirige la vue création";
+        if(!User::isAdmin()){
+            if(User::isLogged()){
+                return Redirect::to('/auth/logout');
             }
-        }else{
-            echo "Vous etes déjà loggés ou vous n'étes pas Admin pour créer un nouvel user";
+            $request->merge(['group_id' => DB::table('groups')->where('name', 'guest')->value('id')]);
+        }
+        
+        $validate = User::getValidation($request);
+
+        if ($validate->fails()){
+            $request->flash();
+            return view('user/create')->withErrors($validate);
         }
 
-
+        $inputs = $validate->getData();
+        $inputs['password'] = bcrypt($inputs['password']);
+        $user = new User($inputs);
+        $group = Group::find($request->only('group_id')['group_id']);
+        $group->users()->save($user);
+        $user->save();
+        return view('home');
     }
-
-    /*$this->validate($request, [
-         'name' => 'max:20|required',
-        'email' => 'max:50',
-        'sex' => 'required',
-        'birth_year' => 'required',
-        'phone_number' => 'numeric',
-        'password' => 'required',
-        'origin_id' => 'numeric'
-    ]);*/
-    //dd($this);
-
-    //$validate = User::getValidation($fields);
-    // En cas d'échec du validateur, on redirige avec les erreurs et les inputs
-    //$users = DB::table('users')->where('name', '=', $fields['name'])->exists();
 
     /**
      * Display the specified resource.
@@ -99,21 +71,19 @@ class UserController extends Controller {
      */
     public function show($id)
     {
-        $isAdmin = User::isAdmin();
-        if($isAdmin){
-            $user = User::find($id);
-            if (!isset($user)) {
-                return response('Not found', 404);
-            }else{
-                echo "Affiche la fiche de l'user par rapport à l'id choisi, que pour l'admin";
-                return $user;
 
-            }
+        if(User::isAdmin()){
+            $user = User::find($id);
         }else{
             $user = User::find(Session::get('id'));
-            echo "Afficher coorespondant à la session de l'user en question connecté";
+        }
+        if($user){
+            return view('user/show',$user);
+        }else{
+            return response('Bad Request', 400);
         }
     }
+    
     /**
      * Show the form for editing the specified resource.
      *

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Validator;
+use Illuminate\Http\Request;
 use DB;
 use Session;
 use Group;
@@ -20,79 +21,38 @@ class User extends Model {
         'name','email','sex','birth_year', 'phone_number','password','origin_id'
     ];
 
+    public static $rules = [
+        'name' => 'max:20|required|unique:users,name',
+        'email' => 'max:50|email|unique:users,email',
+        'sex' => 'required',
+        'birth_year' => 'required|numeric|min:1900|max:2016',
+        'phone_number' => 'regex:/^((\+)?)([\s-.\(\)]*\d{1}){8,13}$/|unique:users,phone_number',
+        'password' => 'required|min:6|confirmed',
+        'origin_id' => 'required|numeric|exists:origins,id',
+        'group_id' => 'required|numeric|exists:groups,id'
+    ];
 
 	protected $table = 'users';
 	public $timestamps = true;
 	protected $dates = ['deleted_at'];
 
-	public function questions()
-	{
-		return $this->hasMany('Question');
+	public static function getValidation(Request $request){
+
+		$inputs = $request->only('name','email','sex','birth_year','phone_number','password','password_confirmation','origin_id','group_id');
+		$validator = Validator::make($inputs, self::$rules);
+
+		return $validator;
 	}
 
-	public function responses()
-	{
-		return $this->hasMany('Response');
-	}
+	public static function exists($name)
+    {
+        return self::find($name) !== null;
+    }
 
-	public function discussions()
-	{
-		return $this->hasMany('Discussion');
-	}
+    public static function isLogged(){
+    	return (Session::get('id') !== null);
+    }
 
-	public function comments()
-	{
-		return $this->hasMany('Comment');
-	}
-
-	public function groups()
-	{
-		return $this->belongsToMany('App\Models\Group');
-	}
-
-	public function origin()
-	{
-		return $this->hasOne('Origin');
-	}
-
-	public static function getVali($fields){
-
-		$validator = Validator::make(
-    		[   
-    	'name' => $fields['name'],
-        'email' => $fields['email'],
-        'sex' => $fields['sex'],
-        'birth_year' => $fields['birth_year'],
-        'phone_number' => $fields['phone_number'],
-        'password' => $fields['password'],
-        'origin_id' => $fields['origin_id']
-        	],
-    		[
-        'name' => 'max:20|required',
-        'email' => 'max:50',
-        'sex' => 'required',
-        'birth_year' => 'required|numeric',
-        'phone_number' => 'numeric',
-        'password' => 'required',
-        'origin_id' => 'numeric'
-    		]
-		);
-    	if ($validator->fails())
-    	{
-    		return false;
-    	}else{
-    		return true;
-    	}
-	}
-
-	public static function userExists($fields){
-		$user = DB::table('users')->select('name')->where('name', '=', $fields['name'])->count();
-		if ($user == 0) {
-			return false;
-		}else{
-			return true;
-		}
-	}
 
 	public static function isAdmin(){
 		$isAdmin = false;
@@ -151,7 +111,33 @@ class User extends Model {
 		return $isInstitution;
 	}
 
+	public function questions()
+	{
+		return $this->hasMany('Question');
+	}
 
+	public function responses()
+	{
+		return $this->hasMany('Response');
+	}
 
+	public function discussions()
+	{
+		return $this->hasMany('Discussion');
+	}
 
+	public function comments()
+	{
+		return $this->hasMany('Comment');
+	}
+
+	public function groups()
+	{
+		return $this->belongsToMany('App\Models\Group');
+	}
+
+	public function origin()
+	{
+		return $this->hasOne('Origin');
+	}
 }

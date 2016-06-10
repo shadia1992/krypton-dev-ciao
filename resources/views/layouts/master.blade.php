@@ -4,8 +4,7 @@
     <title>Ciao</title>
     <meta charset="utf-8">
     <script src="js/packJs.php"></script>
-        <!--<link rel="stylesheet" href="../../assets/css/ciao.css">-->
-        <link rel="stylesheet" type="text/css" href="assets/css/ciao.css" >
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/ciao.css') }}" >
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,700italic,700,500italic,500,400italic,300,300italic,100,100italic,900,900italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     </head>
     <body>
@@ -20,8 +19,8 @@
 
                 <!-- Pour le logo -->
                 <div id="logo" class="text-center image col-xs-9">
-                    <a href="#">
-                        <img src="../assets/img/logo_ciao.png">
+                    <a href="/home">
+                        <img src="{{ asset('assets/img/logo_ciao.png') }}">
                     </a>
                 </div>
                 
@@ -45,7 +44,7 @@
                     <div class="separator"></div>
                     <!-- Pour l'identification -->
                     <div id="header-identification" class='col-xs-4'>
-                        <a href="#">
+                        <a href="/login">
                             S'identifier
                         </a>
                     </div>
@@ -61,11 +60,11 @@
                     </li>
                     @foreach(App\Models\Theme::all() as $theme)
                         <li>
-                            <a href="{{$theme->name}}">{{$theme->name}}</a>
+                            <a href="/theme/{{$theme->id}}">{{$theme->name}}</a>
                         </li>
                     @endforeach
                     <li>
-                        <a href="aPropos">A propos</a>
+                        <a href="/apropos">A propos</a>
                     </li>
                     <li id="btnplus">
                         <a href="Plus">+</a>
@@ -85,10 +84,10 @@
                 
                 <h3>Avec le soutien de</h3>
                 <a href="http://www.oakfnd.org/">
-                    <img src="../assets/img/mecenes_logo_oakfoundation.jpg">
+                    <img src="{{ asset('assets/img/mecenes_logo_oakfoundation.jpg') }}">
                 </a>
                 <a href="https://www.loro.ch/fr">
-                    <img src="../assets/img/mecenes_logo_loro.jpg">
+                    <img src="{{ asset('assets/img/mecenes_logo_loro.jpg') }}">
                 </a>
                 
                 <h3>Parrains</h3>
@@ -102,7 +101,7 @@
                         <img src="https://www.honcode.ch/HONcode/Seal/French/HONConduct446584_s2.gif">
                     </a>
                     <a href="http://www.access-for-all.ch">
-                        <img src="../assets/img/afa2-10-aaplus.jpg">
+                        <img src="{{ asset('assets/img/afa2-10-aaplus.jpg') }}">
                     </a>
                 </div>
                 
