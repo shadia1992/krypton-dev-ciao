@@ -167,7 +167,7 @@ class UserController extends Controller {
       if($user->id == $id){
           echo "Afficher coorespondant à la session de l'user en question connecté";
         }else{
-          echo "Tu te fous de ma guele ?!";
+          echo "Tu te fous de ma gueule ?!";
         }
       
     }
@@ -181,7 +181,60 @@ class UserController extends Controller {
    */
   public function update($id)
   {
-    $fields = Request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
+
+    $isAdmin = User::isAdmin();
+    if($isAdmin){
+
+      $user = User::find($id);
+
+       if (!isset($user)) {
+          return response('Not found', 404);
+       }else{
+
+        $fields = Request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
+
+        $validator = User::getVali($fields);
+
+
+          if($validator){
+
+            $userExists = User::userExists($fields);
+
+            if (!$userExists) {
+
+                  $user->name = $fields['name'];
+                  $user->email = $fields['email'];
+                  $user->sex = $fields['sex'];
+                  $user->birth_year = $fields['birth_year'];
+                  $user->phone_number = $fields['phone_number'];
+                  $user->password = $fields['password'];
+                  $user->origin_id = $fields['origin_id'];
+
+                  $fields['password'] = bcrypt($fields['password']); 
+
+                  if(User::isAdmin()){
+                    $tab = Request::only('group_id');
+                    $group = Group::find($tab['group_id']);
+                  }else{
+                    $group = Group::where('name','like','guest');
+                  }
+                  $group->users()->save($user);
+                  $user->save();
+                  return $user;
+            } else {
+              echo "Pseudo existant, on redirige vers la vue d'edit";
+            }       
+          }else{
+            echo "Pas de respect des contraintes d'ajout, on redirige la vue d'edit";
+          }
+        
+       }
+    }else{
+      $user = User::find(Session::get('id'));
+
+      if($user->id == $id){
+
+        $fields = Request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
 
         $validator = User::getVali($fields);
 
@@ -206,7 +259,7 @@ class UserController extends Controller {
                     $tab = $request::only('group_id');
                     $group = Group::find($tab['group_id']);
                   }else{
-                    $group = Group::find(1);
+                    $group = Group::where('name','like','guest');
                   }
                   $group->users()->save($user);
                   $user->save();
@@ -217,6 +270,13 @@ class UserController extends Controller {
           }else{
             echo "Pas de respect des contraintes d'ajout, on redirige la vue d'edit";
           }
+        }else{
+          echo "Tu te fous de ma gueule ?!";
+        }
+      
+    }
+
+    
        
   }
 

@@ -107,11 +107,51 @@ class User extends Model {
 			}
 		}
 		return $isAdmin;
-		//dd($groups);
-		//$ids = $groups->get('id');
-		
-
 	}
+
+	public static function isModerator(){
+		$isModerator = false;
+		if(null!==(Session::get('id'))){
+			$user = User::find(Session::get('id'));
+			$groups = $user->groups;
+			foreach($groups as $group){
+				if($group->name == 'moderator'){
+					$isAdmin = true;
+				}
+			}
+		}
+		return $isModerator;
+	}
+
+	public static function isSpecialist(){
+		$isSpecialist = false;
+		if(null!==(Session::get('id'))){
+			$user = User::find(Session::get('id'));
+			$groups = $user->groups;
+			foreach($groups as $group){
+				if($group->name == 'specialist'){
+					$isAdmin = true;
+				}
+			}
+		}
+		return $isSpecialist;
+	}
+
+	public static function isInstitution(){
+		$isInstitution = false;
+		if(null!==(Session::get('id'))){
+			$user = User::find(Session::get('id'));
+			$groups = $user->groups;
+			foreach($groups as $group){
+				if($group->name == 'institution'){
+					$isAdmin = true;
+				}
+			}
+		}
+		return $isInstitution;
+	}
+
+
 
 
 }
