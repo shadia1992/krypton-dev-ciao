@@ -10,6 +10,7 @@ class CreateThemesTable extends Migration {
 		Schema::create('themes', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name', 64)->unique();
+			$table->text('content');
 		});
 	}
 
