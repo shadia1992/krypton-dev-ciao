@@ -17,6 +17,7 @@ use Session;
 use Request;
 use Validator;
 use DB;
+use Hash;
 
 class UserController extends Controller {
 
@@ -44,7 +45,10 @@ class UserController extends Controller {
      */
     public function create()
     {
-        return view('user/create');
+
+        return view('users');
+        return view('auth/register');
+
     }
 
     /**
@@ -118,8 +122,24 @@ class UserController extends Controller {
      */
     public function show($id)
     {
-        $user = User::find(Session::get('id'));
-        return $user;
+        $isAdmin = User::isAdmin();
+
+        if($isAdmin){
+
+            $user = User::find($id);
+
+            if (!isset($user)) {
+                return response('Not found', 404);
+            }else{
+
+                echo "Affiche la fiche de l'user par rapport à l'id choisi, que pour l'admin";
+                return $user;
+
+            }
+        }else{
+            $user = User::find(Session::get('id'));
+            echo "Afficher coorespondant à la session de l'user en question connecté";
+        }
     }
 
     /**
@@ -132,9 +152,24 @@ class UserController extends Controller {
     {
         $isAdmin = User::isAdmin();
         if($isAdmin){
-            echo "Affiche la fiche de l'user par rapport à l'id choisi";
+
+            $user = User::find($id);
+
+            if (!isset($user)) {
+                return response('Not found', 404);
+            }else{
+                echo "Affiche la fiche de l'user par rapport à l'id choisi";
+                return $user;
+
+            }
         }else{
-            echo "Afficher coorespondant à la session de l'user en question connecté";
+            $user = User::find(Session::get('id'));
+            if($user->id == $id){
+                echo "Afficher coorespondant à la session de l'user en question connecté";
+            }else{
+                echo "Tu te fous de ma gueule ?!";
+            }
+
         }
     }
 
@@ -146,37 +181,102 @@ class UserController extends Controller {
      */
     public function update($id)
     {
-        $fields = $request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
 
-        $validator = User::getVali($fields);
+        $isAdmin = User::isAdmin();
+        if($isAdmin){
+
+            $user = User::find($id);
+
+            if (!isset($user)) {
+                return response('Not found', 404);
+            }else{
+
+                $fields = Request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
+
+                $validator = User::getVali($fields);
 
 
+                if($validator){
 
-        if($validator){
+                    $userExists = User::userExists($fields);
 
-            $userExists = User::userExists($fields);
+                    if (!$userExists) {
 
-            if (!$userExists) {
+                        $user->name = $fields['name'];
+                        $user->email = $fields['email'];
+                        $user->sex = $fields['sex'];
+                        $user->birth_year = $fields['birth_year'];
+                        $user->phone_number = $fields['phone_number'];
+                        $user->password = $fields['password'];
+                        $user->origin_id = $fields['origin_id'];
 
-                $fields['password'] = bcrypt($fields['password']);
+                        $fields['password'] = bcrypt($fields['password']);
 
-                $user = new User($fields);
-
-                if(User::isAdmin()){
-                    $tab = $request::only('group_id');
-                    $group = Group::find($tab['group_id']);
+                        if(User::isAdmin()){
+                            $tab = Request::only('group_id');
+                            $group = Group::find($tab['group_id']);
+                        }else{
+                            $group = Group::where('name','like','guest');
+                        }
+                        $group->users()->save($user);
+                        $user->save();
+                        return $user;
+                    } else {
+                        echo "Pseudo existant, on redirige vers la vue d'edit";
+                    }
                 }else{
-                    $group = Group::find(1);
+                    echo "Pas de respect des contraintes d'ajout, on redirige la vue d'edit";
                 }
-                $group->users()->save($user);
-                $user->save();
-                return $user;
-            } else {
-                echo "Pseudo existant, on redirige vers la vue d'edit";
+
             }
         }else{
-            echo "Pas de respect des contraintes d'ajout, on redirige la vue d'edit";
+            $user = User::find(Session::get('id'));
+
+            if($user->id == $id){
+
+                $fields = Request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
+
+                $validator = User::getVali($fields);
+
+
+                if($validator){
+
+                    $userExists = User::userExists($fields);
+
+                    if (!$userExists) {
+
+                        $user->name = $fields['name'];
+                        $user->email = $fields['email'];
+                        $user->sex = $fields['sex'];
+                        $user->birth_year = $fields['birth_year'];
+                        $user->phone_number = $fields['phone_number'];
+                        $user->password = $fields['password'];
+                        $user->origin_id = $fields['origin_id'];
+
+                        $fields['password'] = bcrypt($fields['password']);
+
+                        if(User::isAdmin()){
+                            $tab = $request::only('group_id');
+                            $group = Group::find($tab['group_id']);
+                        }else{
+                            $group = Group::where('name','like','guest');
+                        }
+                        $group->users()->save($user);
+                        $user->save();
+                        return $user;
+                    } else {
+                        echo "Pseudo existant, on redirige vers la vue d'edit";
+                    }
+                }else{
+                    echo "Pas de respect des contraintes d'ajout, on redirige la vue d'edit";
+                }
+            }else{
+                echo "Tu te fous de ma gueule ?!";
+            }
+
         }
+
+
 
     }
 
@@ -188,6 +288,27 @@ class UserController extends Controller {
      */
     public function destroy($id)
     {
+        $isAdmin = User::isAdmin();
+        if($isAdmin){
+
+            $user = User::find($id);
+
+            if (!isset($user)) {
+                return response('Not found', 404);
+            }else{
+                $user->delete();
+                echo $user." a été supprimé par admin!";
+            }
+        }else{
+            $user = User::find(Session::get('id'));
+            if($user->id == $id){
+                $user->delete();
+                echo $user." a été supprimé par user";
+            }else{
+                echo "Tu te fous de ma guele ?!";
+            }
+
+        }
 
     }
 
