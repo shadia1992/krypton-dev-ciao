@@ -1,13 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Controllers\Controller;
-
-
-
-
-
 //use Illuminate\Routing\Controller as BaseController;
 use App\Models\Origin;
 use App\Models\User;
@@ -17,9 +10,8 @@ use Session;
 use Request;
 use Validator;
 use DB;
-
+use Hash;
 class UserController extends Controller {
-
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +28,6 @@ class UserController extends Controller {
         }
 
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -44,12 +35,9 @@ class UserController extends Controller {
      */
     public function create()
     {
-
         return view('users');
         return view('auth/register');
-
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -59,21 +47,13 @@ class UserController extends Controller {
     {
 
         $fields = $request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
-
         $validator = User::getVali($fields);
-
         if(null==(Session::get('id')) || User::isAdmin()){
-
             if($validator){
-
                 $userExists = User::userExists($fields);
-
                 if (!$userExists) {
-
                     $fields['password'] = bcrypt($fields['password']);
-
                     $user = new User($fields);
-
                     if(User::isAdmin()){
                         $tab = $request::only('group_id');
                         $group = Group::find($tab['group_id']);
@@ -107,11 +87,9 @@ class UserController extends Controller {
     ]);*/
     //dd($this);
 
-
     //$validate = User::getValidation($fields);
     // En cas d'échec du validateur, on redirige avec les erreurs et les inputs
     //$users = DB::table('users')->where('name', '=', $fields['name'])->exists();
-
 
     /**
      * Display the specified resource.
@@ -121,10 +99,21 @@ class UserController extends Controller {
      */
     public function show($id)
     {
-        $user = User::find(Session::get('id'));
-        return $user;
-    }
+        $isAdmin = User::isAdmin();
+        if($isAdmin){
+            $user = User::find($id);
+            if (!isset($user)) {
+                return response('Not found', 404);
+            }else{
+                echo "Affiche la fiche de l'user par rapport à l'id choisi, que pour l'admin";
+                return $user;
 
+            }
+        }else{
+            $user = User::find(Session::get('id'));
+            echo "Afficher coorespondant à la session de l'user en question connecté";
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -135,12 +124,24 @@ class UserController extends Controller {
     {
         $isAdmin = User::isAdmin();
         if($isAdmin){
-            echo "Affiche la fiche de l'user par rapport à l'id choisi";
+            $user = User::find($id);
+            if (!isset($user)) {
+                return response('Not found', 404);
+            }else{
+                echo "Affiche la fiche de l'user par rapport à l'id choisi";
+                return $user;
+
+            }
         }else{
-            echo "Afficher coorespondant à la session de l'user en question connecté";
+            $user = User::find(Session::get('id'));
+            if($user->id == $id){
+                echo "Afficher coorespondant à la session de l'user en question connecté";
+            }else{
+                echo "Tu te fous de ma guele ?!";
+            }
+
         }
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -149,22 +150,19 @@ class UserController extends Controller {
      */
     public function update($id)
     {
-        $fields = $request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
-
+        $fields = Request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
         $validator = User::getVali($fields);
-
-
-
         if($validator){
-
             $userExists = User::userExists($fields);
-
             if (!$userExists) {
-
+                $user->name = $fields['name'];
+                $user->email = $fields['email'];
+                $user->sex = $fields['sex'];
+                $user->birth_year = $fields['birth_year'];
+                $user->phone_number = $fields['phone_number'];
+                $user->password = $fields['password'];
+                $user->origin_id = $fields['origin_id'];
                 $fields['password'] = bcrypt($fields['password']);
-
-                $user = new User($fields);
-
                 if(User::isAdmin()){
                     $tab = $request::only('group_id');
                     $group = Group::find($tab['group_id']);
@@ -182,7 +180,6 @@ class UserController extends Controller {
         }
 
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -191,9 +188,26 @@ class UserController extends Controller {
      */
     public function destroy($id)
     {
+        $isAdmin = User::isAdmin();
+        if($isAdmin){
+            $user = User::find($id);
+            if (!isset($user)) {
+                return response('Not found', 404);
+            }else{
+                $user->delete();
+                echo $user." a été supprimé par admin!";
+            }
+        }else{
+            $user = User::find(Session::get('id'));
+            if($user->id == $id){
+                $user->delete();
+                echo $user." a été supprimé par user";
+            }else{
+                echo "Tu te fous de ma guele ?!";
+            }
 
+        }
     }
 
 }
-
 ?>
