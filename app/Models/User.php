@@ -66,7 +66,6 @@ class User extends Model {
         'phone_number' => $fields['phone_number'],
         'password' => $fields['password'],
         'origin_id' => $fields['origin_id']
-
         	],
     		[
         'name' => 'max:20|required',
@@ -121,6 +120,7 @@ class User extends Model {
 			}
 		}
 		return $isModerator;
+
 	}
 
 	public static function isSpecialist(){
