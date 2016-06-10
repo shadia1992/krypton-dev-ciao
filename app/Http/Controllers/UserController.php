@@ -17,6 +17,7 @@ use Session;
 use Request;
 use Validator;
 use DB;
+use Hash;
 
 class UserController extends Controller {
 
@@ -121,8 +122,24 @@ class UserController extends Controller {
    */
   public function show($id)
   {
-    $user = User::find(Session::get('id'));
-       return $user;
+    $isAdmin = User::isAdmin();
+
+    if($isAdmin){
+
+      $user = User::find($id);
+
+       if (!isset($user)) {
+          return response('Not found', 404);
+       }else{
+
+        echo "Affiche la fiche de l'user par rapport à l'id choisi, que pour l'admin";
+        return $user;
+        
+       }
+    }else{
+      $user = User::find(Session::get('id'));
+      echo "Afficher coorespondant à la session de l'user en question connecté";
+    }
   }
 
   /**
@@ -135,9 +152,24 @@ class UserController extends Controller {
   {
     $isAdmin = User::isAdmin();
     if($isAdmin){
-      echo "Affiche la fiche de l'user par rapport à l'id choisi";
+
+      $user = User::find($id);
+
+       if (!isset($user)) {
+          return response('Not found', 404);
+       }else{
+        echo "Affiche la fiche de l'user par rapport à l'id choisi";
+        return $user;
+        
+       }
     }else{
-      echo "Afficher coorespondant à la session de l'user en question connecté";
+      $user = User::find(Session::get('id'));
+      if($user->id == $id){
+          echo "Afficher coorespondant à la session de l'user en question connecté";
+        }else{
+          echo "Tu te fous de ma guele ?!";
+        }
+      
     }
   }
 
@@ -149,11 +181,10 @@ class UserController extends Controller {
    */
   public function update($id)
   {
-    $fields = $request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
+    $fields = Request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
 
         $validator = User::getVali($fields);
 
-       
 
           if($validator){
 
@@ -161,9 +192,15 @@ class UserController extends Controller {
 
             if (!$userExists) {
 
-                  $fields['password'] = bcrypt($fields['password']); 
+                  $user->name = $fields['name'];
+                  $user->email = $fields['email'];
+                  $user->sex = $fields['sex'];
+                  $user->birth_year = $fields['birth_year'];
+                  $user->phone_number = $fields['phone_number'];
+                  $user->password = $fields['password'];
+                  $user->origin_id = $fields['origin_id'];
 
-                  $user = new User($fields);
+                  $fields['password'] = bcrypt($fields['password']); 
 
                   if(User::isAdmin()){
                     $tab = $request::only('group_id');
@@ -191,7 +228,28 @@ class UserController extends Controller {
    */
   public function destroy($id)
   {
-    
+      $isAdmin = User::isAdmin();
+      if($isAdmin){
+
+        $user = User::find($id);
+
+        if (!isset($user)) {
+          return response('Not found', 404);
+         }else{
+          $user->delete();
+          echo $user." a été supprimé par admin!";
+         }
+      }else{
+        $user = User::find(Session::get('id'));
+        if($user->id == $id){
+          $user->delete();
+          echo $user." a été supprimé par user";
+        }else{
+          echo "Tu te fous de ma guele ?!";
+        }
+        
+    }
+
   }
   
 }
