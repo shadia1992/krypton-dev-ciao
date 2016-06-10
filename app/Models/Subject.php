@@ -26,4 +26,13 @@ class Subject extends Model {
 		return $this->hasMany('Discussion');
 	}
 
+	public static function subjectExists($fields){
+		$subject = DB::table('subjects')->select('name')->where('id', '=', $fields['subject_id'])->count();
+		if ($subject == 0) {
+			return false;
+		}else{
+			return true;
+		}
+	}
+
 }
