@@ -26,7 +26,7 @@ class QuestionController extends BaseController {
    */
   public function create()
   {
-    return view('question/create');
+    return view('question/create', "caca");
   }
 
   /**
