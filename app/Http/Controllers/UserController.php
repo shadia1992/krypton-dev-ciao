@@ -11,6 +11,7 @@ use DB;
 use Hash;
 use Redirect;
 use Input;
+
 class UserController extends Controller {
     
     /**

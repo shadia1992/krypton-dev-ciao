@@ -92,7 +92,7 @@
                     </div>
         		</div>
 
-                @if(App\Models\User::isAdmin())
+                @if(App\Models\User::is('admin'))
         		<div class="form-group{{ $errors->has('group_id') ? ' has-error' : '' }}">
                     <label for="group_id" class="col-md-4 control-label">Group</label>
                         <div class="col-md-6">

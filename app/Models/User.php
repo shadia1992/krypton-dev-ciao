@@ -44,11 +44,6 @@ class User extends Model {
 		return $validator;
 	}
 
-	public static function exists($name)
-    {
-        return self::find($name) !== null;
-    }
-
     public static function isLogged(){
     	return (Session::get('id') !== null);
     }
@@ -69,22 +64,22 @@ class User extends Model {
 
 	public function questions()
 	{
-		return $this->hasMany('Question');
+		return $this->hasMany('App\Models\Question');
 	}
 
 	public function responses()
 	{
-		return $this->hasMany('Response');
+		return $this->hasMany('App\Models\Response');
 	}
 
 	public function discussions()
 	{
-		return $this->hasMany('Discussion');
+		return $this->hasMany('App\Models\Discussion');
 	}
 
 	public function comments()
 	{
-		return $this->hasMany('Comment');
+		return $this->hasMany('App\Models\Comment');
 	}
 
 	public function groups()
@@ -94,6 +89,6 @@ class User extends Model {
 
 	public function origin()
 	{
-		return $this->hasOne('Origin');
+		return $this->hasOne('App\Models\Origin');
 	}
 }
