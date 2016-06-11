@@ -22,7 +22,7 @@ class User extends Model {
     ];
 
     public static $rules = [
-        'name' => 'max:20|required|unique:users,name',
+        'name' => 'min:2|max:20|required|unique:users,name',
         'email' => 'max:50|email|unique:users,email',
         'sex' => 'required',
         'birth_year' => 'required|numeric|min:1900|max:2016',
@@ -53,62 +53,18 @@ class User extends Model {
     	return (Session::get('id') !== null);
     }
 
-
-	public static function isAdmin(){
-		$isAdmin = false;
+    public static function is($name){
+		$is = false;
 		if(null!==(Session::get('id'))){
 			$user = User::find(Session::get('id'));
 			$groups = $user->groups;
 			foreach($groups as $group){
-				if($group->name == 'admin'){
-					$isAdmin = true;
+				if($group->name == $name){
+					$is = true;
 				}
 			}
 		}
-		return $isAdmin;
-	}
-
-	public static function isModerator(){
-		$isModerator = false;
-		if(null!==(Session::get('id'))){
-			$user = User::find(Session::get('id'));
-			$groups = $user->groups;
-			foreach($groups as $group){
-				if($group->name == 'moderator'){
-					$isAdmin = true;
-				}
-			}
-		}
-		return $isModerator;
-
-	}
-
-	public static function isSpecialist(){
-		$isSpecialist = false;
-		if(null!==(Session::get('id'))){
-			$user = User::find(Session::get('id'));
-			$groups = $user->groups;
-			foreach($groups as $group){
-				if($group->name == 'specialist'){
-					$isAdmin = true;
-				}
-			}
-		}
-		return $isSpecialist;
-	}
-
-	public static function isInstitution(){
-		$isInstitution = false;
-		if(null!==(Session::get('id'))){
-			$user = User::find(Session::get('id'));
-			$groups = $user->groups;
-			foreach($groups as $group){
-				if($group->name == 'institution'){
-					$isAdmin = true;
-				}
-			}
-		}
-		return $isInstitution;
+		return $is;
 	}
 
 	public function questions()

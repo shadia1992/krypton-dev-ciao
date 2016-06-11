@@ -30,6 +30,11 @@ class UserController extends Controller {
      */
     public function create()
     {
+    	if(!User::is('admin')){
+            if(User::isLogged()){
+            	Session::forget('id');
+            }
+        }
         return view('user/create');
     }
 
@@ -40,27 +45,27 @@ class UserController extends Controller {
      */
     public function store(Request $request)
     {
-        if(!User::isAdmin()){
+        if(!User::is('admin')){
             if(User::isLogged()){
-                return Redirect::to('/auth/logout');
+                Session::forget('id');
             }
             $request->merge(['group_id' => DB::table('groups')->where('name', 'guest')->value('id')]);
         }
         
-        $validate = User::getValidation($request);
+        $validator = User::getValidation($request);
 
-        if ($validate->fails()){
+        if ($validator->fails()){
             $request->flash();
-            return view('user/create')->withErrors($validate);
+            return view('user/create')->withErrors($validator);
         }
 
-        $inputs = $validate->getData();
+        $inputs = $validator->getData();
         $inputs['password'] = bcrypt($inputs['password']);
         $user = new User($inputs);
         $group = Group::find($request->only('group_id')['group_id']);
         $group->users()->save($user);
         $user->save();
-        return view('home');
+        return response('OK', 200);
     }
 
     /**
@@ -71,12 +76,12 @@ class UserController extends Controller {
      */
     public function show($id)
     {
-
-        if(User::isAdmin()){
+        if(User::is('admin')){
             $user = User::find($id);
         }else{
             $user = User::find(Session::get('id'));
         }
+
         if($user){
             return view('user/show',$user);
         }else{
@@ -92,24 +97,16 @@ class UserController extends Controller {
      */
     public function edit($id)
     {
-        $isAdmin = User::isAdmin();
-        if($isAdmin){
+    	if(User::is('admin')){
             $user = User::find($id);
-            if (!isset($user)) {
-                return response('Not found', 404);
-            }else{
-                echo "Affiche la fiche de l'user par rapport à l'id choisi";
-                return $user;
-
-            }
         }else{
             $user = User::find(Session::get('id'));
-            if($user->id == $id){
-                echo "Afficher coorespondant à la session de l'user en question connecté";
-            }else{
-                echo "Tu te fous de ma gueule ?!";
-            }
+        }
 
+        if($user){
+            return view('user/edit',$user,['group_id' => $user->groups()->first()['id']]);
+        }else{
+            return response('Bad Request', 400);
         }
     }
     /**
@@ -118,82 +115,47 @@ class UserController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, Request $request)
     {
-        $isAdmin = User::isAdmin();
-        if($isAdmin){
-            $user = User::find($id);
-            if (!isset($user)) {
-                return response('Not found', 404);
-            }else{
-                $fields = Request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
-                $validator = User::getVali($fields);
-                if($validator){
-                    $userExists = User::userExists($fields);
-                    if (!$userExists) {
-                        $user->name = $fields['name'];
-                        $user->email = $fields['email'];
-                        $user->sex = $fields['sex'];
-                        $user->birth_year = $fields['birth_year'];
-                        $user->phone_number = $fields['phone_number'];
-                        $user->password = $fields['password'];
-                        $user->origin_id = $fields['origin_id'];
-                        $fields['password'] = bcrypt($fields['password']);
-                        if(User::isAdmin()){
-                            $tab = Request::only('group_id');
-                            $group = Group::find($tab['group_id']);
-                        }else{
-                            $group = Group::where('name','like','guest');
-                        }
-                        $group->users()->save($user);
-                        $user->save();
-                        return $user;
-                    } else {
-                        echo "Pseudo existant, on redirige vers la vue d'edit";
-                    }
-                }else{
-                    echo "Pas de respect des contraintes d'ajout, on redirige la vue d'edit";
-                }
-
-            }
-        }else{
-            $user = User::find(Session::get('id'));
-            if($user->id == $id){
-                $fields = Request::only('name', 'email','sex','birth_year','phone_number','password','origin_id');
-                $validator = User::getVali($fields);
-                if($validator){
-                    $userExists = User::userExists($fields);
-                    if (!$userExists) {
-                        $user->name = $fields['name'];
-                        $user->email = $fields['email'];
-                        $user->sex = $fields['sex'];
-                        $user->birth_year = $fields['birth_year'];
-                        $user->phone_number = $fields['phone_number'];
-                        $user->password = $fields['password'];
-                        $user->origin_id = $fields['origin_id'];
-                        $fields['password'] = bcrypt($fields['password']);
-                        if(User::isAdmin()){
-                            $tab = $request::only('group_id');
-                            $group = Group::find($tab['group_id']);
-                        }else{
-                            $group = Group::where('name','like','guest');
-                        }
-                        $group->users()->save($user);
-                        $user->save();
-                        return $user;
-                    } else {
-                        echo "Pseudo existant, on redirige vers la vue d'edit";
-                    }
-                }else{
-                    echo "Pas de respect des contraintes d'ajout, on redirige la vue d'edit";
-                }
-            }else{
-                echo "Tu te fous de ma gueule ?!";
-            }
-
+        if(!User::is('admin')) {
+        	$id = Session::get('id');
+			$request->merge(['group_id' => DB::table('groups')->where('name', 'guest')->value('id')]);
         }
 
-
+        $user = User::find($id);
+        if (!$user){
+            return response('Bad Request', 400);
+         }else{
+         	$rules = [
+		        'name' => 'min:2|max:20|required|unique:users,name,'.$user->id,
+		        'email' => 'max:50|email|unique:users,email,'.$user->id,
+		        'sex' => 'required',
+		        'birth_year' => 'required|numeric|min:1900|max:2016',
+		        'phone_number' => 'regex:/^((\+)?)([\s-.\(\)]*\d{1}){8,13}$/|unique:users,phone_number,'.$user->id,
+		        'password' => 'required|min:6|confirmed',
+		        'origin_id' => 'required|numeric|exists:origins,id',
+		        'group_id' => 'required|numeric|exists:groups,id'
+		    ];
+		    $inputs = $request->only('name','email','sex','birth_year','phone_number','password','password_confirmation','origin_id','group_id');
+			$validator = Validator::make($inputs, $rules);
+			if ($validator->fails()){
+	            $request->flash();
+	            return view('user/edit',$user,['group_id' => $user->groups()->first()['id']])->withErrors($validator);
+	        }
+	        $inputs = $validator->getData();
+	        $inputs['password'] = bcrypt($inputs['password']);
+			$user->name = $inputs['name'];
+            $user->email = $inputs['email'];
+            $user->sex = $inputs['sex'];
+            $user->birth_year = $inputs['birth_year'];
+            $user->phone_number = $inputs['phone_number'];
+            $user->password = $inputs['password'];
+            $user->origin_id = $inputs['origin_id'];
+	        $group = Group::find($request->only('group_id')['group_id']);
+	        $group->users()->save($user);
+	        $user->save();
+        	return response('OK', 200);
+         }
     }
     /**
      * Remove the specified resource from storage.
@@ -203,24 +165,15 @@ class UserController extends Controller {
      */
     public function destroy($id)
     {
-        $isAdmin = User::isAdmin();
-        if($isAdmin){
-            $user = User::find($id);
-            if (!isset($user)) {
-                return response('Not found', 404);
-            }else{
-                $user->delete();
-                echo $user." a été supprimé par admin!";
-            }
+        if(!User::is('admin')) {
+        	$id = Session::get('id');
+        }	
+        $user = User::find($id);
+        if (!isset($user)) {
+            return response('Not found', 404);
         }else{
-            $user = User::find(Session::get('id'));
-            if($user->id == $id){
-                $user->delete();
-                echo $user." a été supprimé par user";
-            }else{
-                echo "Tu te fous de ma guele ?!";
-            }
-
+            $user->delete();
+    		return response('OK', 200);
         }
     }
 

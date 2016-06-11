@@ -19,7 +19,37 @@ class UserTableSeeder extends Seeder
         DB::table('users')->delete();
 
         User::create([
-            'email' => 'administrator@ciao.ch',
+            'email' => 'guest@ciao.ch',
+            'password' => bcrypt('123456'),
+            'name' => 'guest',
+            'sex' => 'M',
+            'birth_year' => '1980',
+            'phone_number' => '0000000000',
+            'origin_id' => Origin::where('code', '=', 'CH')->first()->id
+        ]);
+
+        User::create([
+            'email' => 'mod@heig-vd.ch',
+            'password' => bcrypt('123456'),
+            'name' => 'moderator',
+            'sex' => 'M',
+            'birth_year' => '1975',
+            'phone_number' => '0000000000',
+            'origin_id' => Origin::where('code', '=', 'CH')->first()->id
+        ]);
+
+        User::create([
+            'email' => 'spec@heig-vd.ch',
+            'password' => bcrypt('123456'),
+            'name' => 'specialist',
+            'sex' => 'M',
+            'birth_year' => '1977',
+            'phone_number' => '0000000000',
+            'origin_id' => Origin::where('code', '=', 'CH')->first()->id
+        ]);
+
+        User::create([
+            'email' => 'admin@ciao.ch',
             'password' => bcrypt('123456'),
             'name' => 'admin',
             'sex' => 'M',
@@ -92,32 +122,10 @@ class UserTableSeeder extends Seeder
             'email' => 'lauren.bill@heig-vd.ch',
             'password' => bcrypt('123456'),
             'name' => 'lbill',
-            'sex' => 'M',
+            'sex' => 'F',
             'birth_year' => '1992',
             'phone_number' => '0000000000',
             'origin_id' => Origin::where('code', '=', 'CH')->first()->id
         ]);
-
-        User::create([
-            'email' => 'mod@heig-vd.ch',
-            'password' => bcrypt('123456'),
-            'name' => 'moderator',
-            'sex' => 'M',
-            'birth_year' => '1975',
-            'phone_number' => '0000000000',
-            'origin_id' => Origin::where('code', '=', 'CH')->first()->id
-        ]);
-
-        User::create([
-            'email' => 'spec@heig-vd.ch',
-            'password' => bcrypt('123456'),
-            'name' => 'specialist',
-            'sex' => 'M',
-            'birth_year' => '1977',
-            'phone_number' => '0000000000',
-            'origin_id' => Origin::where('code', '=', 'CH')->first()->id
-        ]);
-
-
     }
 }

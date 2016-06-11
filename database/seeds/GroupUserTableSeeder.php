@@ -18,7 +18,7 @@ class GroupUserTableSeeder extends Seeder
         
             DB::table('group_user')->insert([
                 ['user_id' => User::where('name', 'like', 'admin')->first()->id,'group_id' => Group::where('name', 'like', 'admin')->first()->id],
-                ['user_id' => User::where('name', 'like', 'admin')->first()->id,'group_id' => Group::where('name', 'like', 'moderator')->first()->id],
+                ['user_id' => User::where('name', 'like', 'guest')->first()->id,'group_id' => Group::where('name', 'like', 'guest')->first()->id],
                 ['user_id' => User::where('name', 'like', 'dmendes')->first()->id,'group_id' => Group::where('name', 'like', 'guest')->first()->id],
                 ['user_id' => User::where('name', 'like', 'rsandoz')->first()->id,'group_id' => Group::where('name', 'like', 'guest')->first()->id],
                 ['user_id' => User::where('name', 'like', 'pghiring')->first()->id,'group_id' => Group::where('name', 'like', 'guest')->first()->id],

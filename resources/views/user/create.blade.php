@@ -38,10 +38,10 @@
                 <div class="form-group{{ $errors->has('sex') ? ' has-error' : '' }}">
                     <label for="sex" class="col-md-4 control-label">Sex</label>
 
-                    <div class="col-sm-3">
+                    <div class="col-md-3">
                         <input id="sex" type="radio" class="form-control" name="sex" value="M" <?php if(old('sex')== "M") { echo 'checked="checked"'; } ?>> Male
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-md-3">
                         <input id="sex" type="radio" class="form-control" name="sex" value="F" <?php if(old('sex')== "F") { echo 'checked="checked"'; } ?> > Female
 
                         @if ($errors->has('sex'))
@@ -85,24 +85,26 @@
                         <div class="col-md-6">
                             <select id="origin_id" name="origin_id" class="form-control">
                                 @foreach(App\Models\Origin::all() as $origin)
-                                	<option value="{{ $origin->id }}">{{ $origin->name }}</option>
+                                	<option value="{{ $origin->id }}" {{(old('origin_id') == $origin->id ? "selected":"")}}>{{ $origin->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
         		</div>
 
+                @if(App\Models\User::isAdmin())
         		<div class="form-group{{ $errors->has('group_id') ? ' has-error' : '' }}">
                     <label for="group_id" class="col-md-4 control-label">Group</label>
                         <div class="col-md-6">
                             <select id="group_id" name="group_id" class="form-control">
                                 @foreach(App\Models\Group::all() as $group)
-                                	<option value="{{ $group->id }}">{{ $group->name }}</option>
+                                	<option value="{{ $group->id }}" {{(old('group_id') == $group->id ? "selected":"")}}>{{ $group->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
         		</div>
+                @endif
 
         		<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                     <label for="password" class="col-md-4 control-label">Password</label>
