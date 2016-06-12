@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Question;
 use Request;
+use Session;
 
 class QuestionController extends BaseController {
 
@@ -36,12 +37,12 @@ class QuestionController extends BaseController {
    */
   public function store(Request $request)
   {
-    $fields = $request::only('title', 'content','subject_id','user_id');
+    $fields = $request::only('title', 'content', 'subject_id', 'user_id');
 
     $validator = Question::getVali($fields);
-    if(!$validator) {
+    if (!$validator) {
       return response(json_encode(['message' => 'validation failed']), 400, array('Content-Type' => 'application/json'));
-    }else{
+    } else {
       $question = new Question($fields);
       $question->moderated = false;
       $question->answered = false;
@@ -50,7 +51,6 @@ class QuestionController extends BaseController {
       return response()->json(
           $question->toArray());
     }
-      
   }
 
   /**
@@ -109,7 +109,14 @@ class QuestionController extends BaseController {
   {
     
   }
-  
+
+  public function setTitle(Request $request){
+
+  }
+
+  public function setTags(Request $request){
+
+  }
 }
 
 ?>
