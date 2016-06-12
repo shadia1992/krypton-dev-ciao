@@ -43,7 +43,7 @@ class DiscussionController extends BaseController {
     $moderated = false;
     $score = 0;
 
-    $fields = $request::only('subject_id', 'user_id','title','score','moderated','content');
+    $fields = $request::only('subject_id', 'user_id','score','moderated','content');
 
         $validator = Discussion::getVali($fields);
 
@@ -103,6 +103,7 @@ class DiscussionController extends BaseController {
    */
   public function update($id)
   {
+    // Il faut que les infos soit présentes dans les champs
     $isModerator = User::isModerator();
     $user = User::find(Session::get('id'));
     $userId = $user->id;
@@ -121,19 +122,37 @@ class DiscussionController extends BaseController {
           return response('Not found', 404);
 
        }else{
-        
+
           $fields = $request::only('subject_id', 'user_id','title','score','moderated','content');
 
           $validator = Discussion::getVali($fields);
 
           if($isModerator){
-            $moderated = true;
+
+                  $title = Request::only('title');
+                  $moderated = true;
+
+                  $discussion->subject_id = $fields['subject_id'];
+                  $discussion->user_id = $fields['user_id'];
+                  $discussion->title = $title;
+                  $discussion->score = $fields['score'];
+                  $discussion->moderated = $moderated;
+                  $discussion->content = $fields['content'];
+                  $discussion->save();
+                  return $discussion;
+          }else{
+
+                  if($moderated == false){
+
+                  }
+                  $discussion->content = $fields['content'];
           }
 
     }
 
     
   }
+}
 
   /**
    * Remove the specified resource from storage.

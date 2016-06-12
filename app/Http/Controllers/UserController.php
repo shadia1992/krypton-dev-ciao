@@ -12,7 +12,6 @@ use Hash;
 use Redirect;
 use Input;
 class UserController extends Controller {
-
     /**
      * Display a listing of the resource.
      *
@@ -49,7 +48,6 @@ class UserController extends Controller {
             }
             $request->merge(['group_id' => DB::table('groups')->where('name', 'guest')->value('id')]);
         }
-
         $validator = User::getValidation($request);
         if ($validator->fails()){
             $request->flash();
@@ -82,7 +80,6 @@ class UserController extends Controller {
             return response('Bad Request', 400);
         }
     }
-
     /**
      * Show the form for editing the specified resource.
      *
