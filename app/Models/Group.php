@@ -16,7 +16,7 @@ class Group extends Model {
 
 	public function resources()
 	{
-		return $this->belongsToMany('Resource');
+		return $this->belongsToMany('App\Models\Resource');
 	}
 
 }

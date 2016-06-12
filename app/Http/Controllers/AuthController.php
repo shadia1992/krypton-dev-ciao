@@ -14,24 +14,25 @@ class AuthController extends Controller
     {
         $password = Request::input('password', '');
         $name = Request::input('name', '');
-        $user = User::where("name", $name)->first();
+        $user = User::where('name', $name)->first();
+        
         // Check user exists
         if (!isset($user)) {
-            return 'login failed, user existe pas ';
+            return response('Bad Request', 400);
         }
         // Check password
        if (!Hash::check($password,$user->password)) {
-           return 'login failed, pas le bon mot de passe';
+           return response('Bad Request', 400);
        }
        // Auth persistance
        Session::put('id', $user->id);
-       return 'login successful';
+       return response('OK', 200);
     }
 
     public function logout()
     {
         Session::forget('id');
-        return 'logout successful';
+        return response('OK', 200);
     }
 
 }

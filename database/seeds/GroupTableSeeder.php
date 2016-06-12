@@ -17,10 +17,10 @@ class GroupTableSeeder extends Seeder
 
         $groups = [
             ['name'=>'guest'],
-            ['name'=>'admin'],
             ['name'=>'specialist'],
             ['name'=>'moderator'],
-            ['name'=>'institution']
+            ['name'=>'institution'],
+            ['name'=>'admin'],
         ];
 
         DB::table('groups')->insert($groups);

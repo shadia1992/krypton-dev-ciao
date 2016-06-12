@@ -13,17 +13,17 @@ class Subject extends Model {
 
 	public function theme()
 	{
-		return $this->belongsTo('Theme', 'theme_id');
+		return $this->belongsTo('App\Models\Theme', 'theme_id');
 	}
 
 	public function questions()
 	{
-		return $this->hasMany('Question');
+		return $this->hasMany('App\Models\Question');
 	}
 
 	public function discussions()
 	{
-		return $this->hasMany('Discussion');
+		return $this->hasMany('App\Models\Discussion');
 	}
 
 	public static function subjectExists($fields){

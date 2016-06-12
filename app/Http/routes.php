@@ -31,7 +31,7 @@ Route::group(['middleware' => ['web']], function () {
     	return view('auth/login');
 	});
 
-	Route::get('/auth/login', 'AuthController@login');
+	Route::post('/auth/login', 'AuthController@login');
 
     Route::group(['middleware' => ['auth']], function () {
         
@@ -104,7 +104,6 @@ Route::group(['middleware' => ['web']], function () {
 			Route::delete('/tag/{id}', 'TagController@destroy');
         });
     });
-
 
 	Route::get('/user/create', 'UserController@create');
 	Route::post('/user', 'UserController@store');

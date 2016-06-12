@@ -1,6 +1,15 @@
 <?php 
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
+use App\Models\Theme;
+use App\Models\Subject;
+use Illuminate\Http\Request;
+use Validator;
+use DB;
+use Hash;
+use Redirect;
+use Input;
 
 class ThemeController extends Controller {
 
@@ -9,9 +18,9 @@ class ThemeController extends Controller {
    *
    * @return Response
    */
-  public function index()
-  {
-    echo "index";
+  public function index(){
+
+    return view('theme/index');
   }
 
   /**
@@ -21,7 +30,7 @@ class ThemeController extends Controller {
    */
   public function create()
   {
-    echo "create";
+    return view('theme/create');
   }
 
   /**
@@ -29,10 +38,20 @@ class ThemeController extends Controller {
    *
    * @return Response
    */
-  public function store()
-  {
+  public function store(Request $request)
+  {      
+      $validator = Theme::getValidation($request);
 
-  }
+      if ($validator->fails()){
+          $request->flash();
+          return view('theme/create')->withErrors($validator);
+      }
+
+      $inputs = $validator->getData();
+      $theme = new Theme($inputs);
+      $theme->save();
+      return response('OK', 200);
+    }
 
   /**
    * Display the specified resource.
@@ -42,7 +61,12 @@ class ThemeController extends Controller {
    */
   public function show($id)
   {
-    echo "show";
+    $theme = Theme::find($id);
+    if($theme){
+        return view('theme/show',$theme,['subjects'=> $theme->subjects()->get()]);
+    }else{
+        return response('Bad Request', 400);
+    }
   }
 
   /**
@@ -53,7 +77,13 @@ class ThemeController extends Controller {
    */
   public function edit($id)
   {
-    
+    $theme = Theme::find($id);
+
+    if($theme){
+        return view('theme/edit',$theme);
+    }else{
+        return response('Bad Request', 400);
+    }
   }
 
   /**
@@ -64,7 +94,26 @@ class ThemeController extends Controller {
    */
   public function update($id)
   {
-    
+    $theme = Theme::find($id);
+    if (!$theme){
+        return response('Bad Request', 400);
+     }else{
+      $rules = [
+        'name' => 'min:2|max:40|required|unique:theme,name,'.$user->id,
+        'content' => 'required',
+    ];
+    $inputs = $request->only('name','content');
+    $validator = Validator::make($inputs, $rules);
+    if ($validator->fails()){
+      $request->flash();
+      return view('theme/edit',$theme)->withErrors($validator);
+    }
+    $inputs = $validator->getData();
+    $theme->name = $inputs['name'];
+    $theme->content = $inputs['content'];
+    $user->save();
+    return response('OK', 200);
+	}
   }
 
   /**
@@ -75,9 +124,13 @@ class ThemeController extends Controller {
    */
   public function destroy($id)
   {
-    
+    $theme = Theme::find($id);
+        if (!isset($theme)) {
+            return response('Not found', 404);
+        }else{
+            $theme->delete();
+    		return response('OK', 200);
+        }
   }
-  
 }
-
 ?>
