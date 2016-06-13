@@ -10,7 +10,9 @@
 </dl>
 <ul>
 	@foreach($subjects as $subject)
-		<li>{{$subject->name}}</li>
+		<li>
+			<a href="/subject/{{$subject->id}}">{{$subject->name}}</a>
+		</li>
 	@endforeach
 </ul>
 @endsection

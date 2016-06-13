@@ -8,7 +8,6 @@ use Validator;
 use DB;
 use Session;
 
-
 class Theme extends Model {
 
 	/**
@@ -17,7 +16,7 @@ class Theme extends Model {
      * @var array
      */
     protected $fillable = [
-        'name',
+        'name','content',
     ];
 
     public static $rules = [
