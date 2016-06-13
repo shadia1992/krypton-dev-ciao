@@ -46,6 +46,7 @@ class UserController extends Controller {
             if(User::isLogged()){
                 Session::forget('id');
             }
+            // on ajoute le group_id guest pour tout les users
             $request->merge(['group_id' => DB::table('groups')->where('name', 'guest')->value('id')]);
         }
         $validator = User::getValidation($request);
@@ -111,6 +112,7 @@ class UserController extends Controller {
             $id = Session::get('id');
             $request->merge(['group_id' => DB::table('groups')->where('name', 'guest')->value('id')]);
         }
+        // Si c'est un admin
         $user = User::find($id);
         if (!$user){
             return response('Bad Request', 400);

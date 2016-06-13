@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Validator;
 use DB;
 use Session;
-use Subject;
+
 
 class Theme extends Model {
 

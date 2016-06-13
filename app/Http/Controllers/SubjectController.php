@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subject;
-
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\ArticlePublicitaire;
+
 
 
 class SubjectController extends Controller {
@@ -19,8 +18,7 @@ class SubjectController extends Controller {
    */
   public function index()
   {
-    $subjects = Subject::all();
-    return $subjects;
+    return view('subject/index');
   }
 
   /**
@@ -30,7 +28,12 @@ class SubjectController extends Controller {
    */
   public function create()
   {
-    
+    if(User::is('admin')){
+      return view('subject/create');
+    }else{
+      echo "tu ne peux pas créer de sujets";
+    }
+            
   }
 
   /**
@@ -38,9 +41,24 @@ class SubjectController extends Controller {
    *
    * @return Response
    */
-  public function store()
+  public function store(Request $request)
   {
-    
+    if(User::is('admin')){
+      $validator = Subject::getValidation($request);
+        if ($validator->fails()){
+            $request->flash();
+            return view('subject/create')->withErrors($validator);
+        }
+        $inputs = $validator->getData();
+        
+        $subject = new Subject($inputs);
+        $theme = Theme::find($request->only('theme_id')['theme_id']);
+        $theme->subjects()->save($subject);
+        $subject->save();
+        return response('OK', 200);
+    }else{
+      echo "tu ne peux pas créer de sujets";
+    }
   }
 
   /**
@@ -51,7 +69,13 @@ class SubjectController extends Controller {
    */
   public function show($id)
   {
-    
+    $subject = Subject::find($id);
+    if($subject){
+        return view('subject/show',$subject,['discussions'=> $subject->discussions()->get()]);
+        // il faudrait retourner les questions aussi.
+    }else{
+        return response('Bad Request', 400);
+    }
   }
 
   /**
@@ -62,7 +86,14 @@ class SubjectController extends Controller {
    */
   public function edit($id)
   {
-    
+    if(User::is('admin')){
+      $subject = Subject::find($id);
+        if($subject){
+            return view('subject/edit',$subject,['theme_id' => $subject->theme()->first()['id']]);
+            // PA doit m'expliquer ces liens de retour
+        }else{
+            return response('Bad Request', 400);
+        }
   }
 
   /**
@@ -73,7 +104,10 @@ class SubjectController extends Controller {
    */
   public function update($id)
   {
-    
+    if(User::is('admin')){
+      $subject = Subject::find($id);
+
+    }
   }
 
   /**
