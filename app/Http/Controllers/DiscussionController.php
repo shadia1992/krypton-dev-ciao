@@ -120,15 +120,16 @@ class DiscussionController extends BaseController {
 
           return response('Not found', 404);
 
-       }else{
-        
-          $fields = $request::only('subject_id', 'user_id','title','score','moderated','content');
+       }else {
+
+          $fields = $request::only('subject_id', 'user_id', 'title', 'score', 'moderated', 'content');
 
           $validator = Discussion::getVali($fields);
 
-          if($isModerator){
-            $moderated = true;
+          if ($isModerator) {
+              $moderated = true;
           }
+      }
 
     }
 
