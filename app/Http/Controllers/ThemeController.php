@@ -92,14 +92,14 @@ class ThemeController extends Controller {
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update($id, Request $request)
   {
     $theme = Theme::find($id);
     if (!$theme){
         return response('Bad Request', 400);
      }else{
       $rules = [
-        'name' => 'min:2|max:40|required|unique:theme,name,'.$user->id,
+        'name' => 'min:2|max:40|required|unique:themes,name,'.$theme->id,
         'content' => 'required',
     ];
     $inputs = $request->only('name','content');
@@ -111,7 +111,7 @@ class ThemeController extends Controller {
     $inputs = $validator->getData();
     $theme->name = $inputs['name'];
     $theme->content = $inputs['content'];
-    $user->save();
+    $theme->save();
     return response('OK', 200);
 	}
   }
