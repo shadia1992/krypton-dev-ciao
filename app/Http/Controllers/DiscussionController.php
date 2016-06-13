@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Controller as BaseController;
+//use Illuminate\Routing\Controller as BaseController;
 use App\Models\Discussion;
 use App\Models\User;
-use Request;
+use App\Models\Subject;
 use Session;
+use Illuminate\Http\Request;
+use Validator;
+use DB;
+use Hash;
+use Redirect;
+use Input;
 
-class DiscussionController extends BaseController {
+class DiscussionController extends Controller {
 
   /**
    * Display a listing of the resource.
@@ -17,8 +23,7 @@ class DiscussionController extends BaseController {
    */
   public function index()
   {
-      $discussions = Discussion::all();
-      return $discussions;
+      return view('discussion/index');
   }
 
   /**
@@ -28,7 +33,7 @@ class DiscussionController extends BaseController {
    */
   public function create()
   {
-    return "Vue qui permet de créer une discussion";
+     return view('discussion/create');
   }
 
   /**
@@ -40,28 +45,29 @@ class DiscussionController extends BaseController {
   {
 
     $user = User::find(Session::get('id'));
-    $moderated = false;
-    $score = 0;
-
-    $fields = $request::only('subject_id', 'user_id','title','score','moderated','content');
-
-        $validator = Discussion::getVali($fields);
+    $request->merge(['user_id' => $user->id, 'moderated' => false, 'score'=>0]);
 
 
-          if($validator){
 
-                  $discussion = new Discussion($fields);
-                  $discussion->title = "";
-                  $discussion->user_id = $user->id;
-                  $discussion->moderated = $moderated;
-                  $discussion->score = $score;
-                  $discussion->save();
-                  return $discussion;
+     $validator = Discussion::getValidation($request);
+
+
+        if ($validator->fails()){
+            $request->flash();
+
+            return view('discussion/create')->withErrors($validator);
+        }
+        
+        $inputs = $validator->getData();
+
+        $discussion = new Discussion($inputs);
+
+        $discussion->save();
+        
+        //return $discussion;
+        return response('OK', 200);
       
-          }else{
-            echo "Pas de respect des contraintes d'ajout, on redirige la vue création";
-          }
-      
+        
   }
   
 
@@ -74,7 +80,11 @@ class DiscussionController extends BaseController {
   public function show($id)
   {
     $discussion = Discussion::find($id);
-    return $discussion;
+    if($discussion){
+            return view('discussion/show',$discussion);
+        }else{
+            return response('Bad Request', 400);
+        }
   }
 
   /**
@@ -85,13 +95,13 @@ class DiscussionController extends BaseController {
    */
   public function edit($id)
   {
-
-
-
-
-
-    //if()
-
+    
+    $discussion = Discussion::find($id);
+    if($discussion){
+            return view('discussion/edit',$discussion);
+        }else{
+            return response('Bad Request', 400);
+        }
 
   }
 
@@ -101,18 +111,25 @@ class DiscussionController extends BaseController {
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update($id, Request $request)
   {
-    $isModerator = User::isModerator();
+    // Il faut que les infos soit présentes dans les champs
+    $isModerator = User::is('moderator');
+    $isGuest = User::is('guest');
     $user = User::find(Session::get('id'));
-    $userId = $user->id;
     $discussion = Discussion::find($id);
     $discussionUserId = $discussion->user_id;
-    dd($discussionUserId);
+    $moderated = $discussion->moderated;
+    //$score = $discussion->score;
 
-    $moderated = false;
+    if($moderated == true || $isGuest){
+
+      return "UNAUTHORIZED";
+    }
 
 
+    $request->merge(['user_id' => $user->id, 'moderated' => $moderated, 'score'=>$score]);
+    //dd($discussionUserId);
 
     if($userId == $discussionUserId || $isModerator){
 
@@ -121,19 +138,48 @@ class DiscussionController extends BaseController {
           return response('Not found', 404);
 
        }else{
-        
-          $fields = $request::only('subject_id', 'user_id','title','score','moderated','content');
 
-          $validator = Discussion::getVali($fields);
+          $rules = [
+          'subject_id' => 'exists:subjects,id|required',
+          'title' => 'min:3|max:128|required|string|unique:discussions,title,'.$discussion->id,
+          'content' => 'required|string',
+          'user_id' => 'exists:users,id|required',
+          'moderated' =>  'required',
+          'score' => 'required|numeric'
+          ];
+
+        
+
+          $inputs = $request->only('subject_id','title','content');
+          
+           $validator = Validator::make($inputs, $rules);
+            if ($validator->fails()){
+                $request->flash();
+                return view('discussion/edit',$discussion,['subject_id' => $discussion->subject()->first()['id']])->withErrors($validator);
+            }
 
           if($isModerator){
             $moderated = true;
           }
 
+          $discussion->subject_id = $inputs['subject_id'];
+          $discussion->user_id = $userId;
+          $discussion->title = $inputs['title'];
+          $discussion->score = $score;
+          $discussion->moderated = $moderated;
+          $discussion->content = $inputs['content'];
+          
+          $discussion->save();
+          return $discussion;
+          //return response('OK', 200);
+        }else{
+          echo "vous ne pouvez plus modifier cette vue car déjà modérée";
+        }
     }
-
-    
+  }else{
+    echo "tu peux pas car t'es pas le bon user n'y moderateur";
   }
+}
 
   /**
    * Remove the specified resource from storage.
@@ -143,9 +189,22 @@ class DiscussionController extends BaseController {
    */
   public function destroy($id)
   {
+    $isModerator = User::is('moderator');
+    $isAdmin = User::is('admin');
+    $discussion = Discussion::find($id);
     
-  }
+
+    if(!$discussion){
+      return response('Not found', 404);
+    }
+    if($isAdmin || $isModerator){
+      $discussion->delete();
+      return response('OK', 200);
+    }else{
+      echo "pas les droits";
+    }
   
+}
 }
 
 ?>

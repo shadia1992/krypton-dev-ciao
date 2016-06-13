@@ -11,7 +11,9 @@ class CreateDiscussionsTable extends Migration {
 			$table->increments('id');
 			$table->integer('subject_id')->unsigned();
 			$table->integer('user_id')->unsigned()->nullable();
-			$table->string('title', 255)->unique()->nullable();
+
+			$table->string('title', 255);
+
 			$table->integer('score');
 			$table->boolean('moderated');
 			$table->text('content');
