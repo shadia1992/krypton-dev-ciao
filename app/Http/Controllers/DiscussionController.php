@@ -115,34 +115,30 @@ class DiscussionController extends Controller {
   {
     // Il faut que les infos soit présentes dans les champs
     $isModerator = User::is('moderator');
+    $isAdmin = User::is('admin');
     $isGuest = User::is('guest');
     $user = User::find(Session::get('id'));
     $discussion = Discussion::find($id);
     $discussionUserId = $discussion->user_id;
     $moderated = $discussion->moderated;
-    //$score = $discussion->score;
+    $score = $discussion->score;
 
-    if($moderated == true || $isGuest){
-
+    if($moderated == true && $isGuest){
       return "UNAUTHORIZED";
     }
 
+    $request->merge(['user_id' => $discussionUserId, 'moderated' => $moderated, 'score'=>$score]);
+    //dd($score);
 
-    $request->merge(['user_id' => $user->id, 'moderated' => $moderated, 'score'=>$score]);
-    //dd($discussionUserId);
-
-    if($userId == $discussionUserId || $isModerator){
+    if($user->id == $discussionUserId || $isModerator || $isAdmin){
 
       if (!isset($discussion)) {
-
-          return response('Not found', 404);
-
-       }else{
-
+        return response('Not found', 404);
+      }else{
           $rules = [
           'subject_id' => 'exists:subjects,id|required',
-          'title' => 'min:3|max:128|required|string|unique:discussions,title,'.$discussion->id,
-          'content' => 'required|string',
+          'title' => 'min:3|max:128|required|unique:discussions,title,'.$discussion->id,
+          'content' => 'required',
           'user_id' => 'exists:users,id|required',
           'moderated' =>  'required',
           'score' => 'required|numeric'
@@ -150,35 +146,38 @@ class DiscussionController extends Controller {
 
         
 
-          $inputs = $request->only('subject_id','title','content');
-          
-           $validator = Validator::make($inputs, $rules);
+          $inputs = $request->only('subject_id','title','content','user_id','moderated','score');
+          $validator = Validator::make($inputs, $rules);
+
             if ($validator->fails()){
                 $request->flash();
                 return view('discussion/edit',$discussion,['subject_id' => $discussion->subject()->first()['id']])->withErrors($validator);
             }
 
+
           if($isModerator){
             $moderated = true;
           }
 
+
           $discussion->subject_id = $inputs['subject_id'];
-          $discussion->user_id = $userId;
+          $discussion->user_id = $discussionUserId;
+
           $discussion->title = $inputs['title'];
           $discussion->score = $score;
+
           $discussion->moderated = $moderated;
           $discussion->content = $inputs['content'];
-          
+
+          //dd($discussion);
           $discussion->save();
-          return $discussion;
-          //return response('OK', 200);
-        }else{
-          echo "vous ne pouvez plus modifier cette vue car déjà modérée";
-        }
+
+          //return $discussion;
+          return response('OK', 200);
+      }
+    }else{
+          echo "vous ne pouvez plus modifier cette vue car pas bon user";
     }
-  }else{
-    echo "tu peux pas car t'es pas le bon user n'y moderateur";
-  }
 }
 
   /**
