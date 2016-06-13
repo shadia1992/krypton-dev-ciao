@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Validator;
 use DB;
 use Session;
-use Subject;
 
 class Theme extends Model {
 
@@ -17,7 +16,7 @@ class Theme extends Model {
      * @var array
      */
     protected $fillable = [
-        'name',
+        'name','content',
     ];
 
     public static $rules = [
